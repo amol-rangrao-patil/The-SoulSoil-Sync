@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Campus Interviews | The SoulSoil Sync Presented by ADHYATMANTAN FARMS</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&display=swap');
+        
+        body { margin: 0; background: #050505; color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; padding: 40px 20px; }
+        
+        .bg-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
+        .orb { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.3; }
+
+        .container { max-width: 1000px; margin: 0 auto; }
+        .main-grid { display: grid; grid-template-columns: 1fr 320px; gap: 30px; }
+
+        .card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); padding: 30px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 20px; }
+        
+        .sidebar-btn { display: block; width: 100%; padding: 15px; margin-bottom: 10px; border-radius: 12px; text-align: center; font-weight: 700; text-decoration: none; color: #fff; transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; }
+        .btn-prize { background: #FBBC05; color: #000; border: none; }
+        .btn-candidate { background: #4285F4; border: none; }
+        .sidebar-btn:hover { transform: scale(1.02); filter: brightness(1.2); }
+
+        .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .meta-item { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; font-size: 0.9rem; }
+        
+        .q-item { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 3px solid #4285F4; font-size: 0.9rem; }
+        
+        @media (max-width: 850px) { .main-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="bg-container">
+        <div class="orb" style="background:#4285F4; width:400px; height:400px; top:-10%; left:-10%;"></div>
+        <div class="orb" style="background:#EA4335; width:350px; height:350px; bottom:-10%; right:-10%;"></div>
+    </div>
+
+    <div class="container">
+        <a href="index.html" style="display: inline-block; padding: 10px 20px; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; color: #888; text-decoration: none; font-size: 0.9rem; margin-bottom: 20px;">← Back to Home</a>
+        
+        <div class="main-grid" style="margin-top: 10px;">
+            <div>
+                <div class="card">
+                    <h1>Campus Interviews</h1>
+                    <p style="color: #bbb;">Prepare for industry-standard technical and behavioral interviews.</p>
+                    <div class="meta-grid">
+                        <div class="meta-item">📅 <b>Date:</b> TDB</div>
+                        <div class="meta-item">📍 <b>Location:</b> Offline / Google Meet</div>
+                        <div class="meta-item">👥 <b>Slots:</b> 12 Available</div>
+                        <div class="meta-item">⚠️ <b>Rules:</b> Professional Attire</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Event Overview</h3>
+                    <p style="color: #ccc; line-height: 1.8;">Updated Soon!!</p>
+                </div>
+
+                <div class="card">
+                    <h3>Interview Questions</h3>
+                    <div class="q-item">Updated Soon</div>
+                    <div class="q-item">Updated Soon!!!</div>
+                   
+                </div>
+            </div>
+
+            <div style="position: sticky; top: 40px; height: fit-content;">
+                <div class="card">
+                    <h3 style="margin-top:0;">Quick Actions</h3>
+                    <a href="prizes.html" class="sidebar-btn btn-prize">VIEW REWARDS</a>
+                    <hr style="border:0; border-top:1px solid #333; margin: 15px 0;">
+                    <p style="font-size: 0.8rem; color:#888; margin-bottom: 15px;">Join Meet Session:</p>
+                    
+                    <a href="#" class="sidebar-btn btn-candidate">JOIN MEET - CANDIDATE 1</a>
+                    <a href="#" class="sidebar-btn btn-candidate">JOIN MEET - CANDIDATE 2</a>
+                    <a href="#" class="sidebar-btn btn-candidate">JOIN MEET - CANDIDATE 3</a>
+                    <a href="#" class="sidebar-btn btn-candidate">JOIN MEET - CANDIDATE 4</a>
+                    <a href="#" class="sidebar-btn btn-candidate">JOIN MEET - CANDIDATE 5</a>
+                    <a href="#" class="sidebar-btn btn-candidate">JOIN MEET - CANDIDATE 6</a>
+                    <a href="#" class="sidebar-btn btn-candidate">JOIN MEET - CANDIDATE 7</a>
+                    <a href="#" class="sidebar-btn btn-candidate">JOIN MEET - CANDIDATE 8</a>
+                    <a href="#" class="sidebar-btn btn-candidate">JOIN MEET - CANDIDATE 9</a>
+                    <a href="#" class="sidebar-btn btn-candidate">JOIN MEET - CANDIDATE 10</a>
+                    <a href="#" class="sidebar-btn btn-candidate">JOIN MEET - CANDIDATE 11</a>
+                    <a href="#" class="sidebar-btn btn-candidate">JOIN MEET - CANDIDATE 12</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
