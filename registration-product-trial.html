@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration | Career Glow Up Night</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root { --blue: #4285F4; --bg-dark: #030712; }
+        
+        body { 
+            margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; color: white;
+            min-height: 100vh; background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(at 0% 0%, var(--blue) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, #EA4335 0px, transparent 50%),
+                radial-gradient(at 100% 100%, #FBBC05 0px, transparent 50%),
+                radial-gradient(at 0% 100%, #34A853 0px, transparent 50%),
+                linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+            overflow-y: auto;
+        }
+
+        header { padding: 30px; display: flex; justify-content: space-between; align-items: center; }
+        
+        .btn-style { 
+            padding: 10px 20px; color: white; text-decoration: none; 
+            border: 1px solid rgba(255,255,255,0.3); border-radius: 12px;
+            font-size: 0.9rem; transition: 0.3s;
+        }
+        .btn-style:hover { background: rgba(255,255,255,0.1); border-color: var(--blue); }
+
+        .container { display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .event-card { 
+            width: 90%; max-width: 700px; 
+            background: rgba(17, 24, 39, 0.8); 
+            padding: 40px; border-radius: 30px; 
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        
+        h1 { margin: 0 0 10px 0; color: white; text-align: center; }
+        
+        /* Attractive Pulsing Status Badge */
+        .status-badge {
+            display: inline-block; padding: 10px 20px; margin-bottom: 25px;
+            background: rgba(66, 133, 244, 0.1); 
+            border: 1px solid var(--blue);
+            color: var(--blue); border-radius: 50px; 
+            font-size: 0.9rem; font-weight: 700;
+            box-shadow: 0 0 15px rgba(66, 133, 244, 0.3);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(66, 133, 244, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(66, 133, 244, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(66, 133, 244, 0); }
+        }
+
+        .iframe-wrap { 
+            width: 100%; height: 550px; border-radius: 16px; 
+            overflow: hidden; background: #fff; margin-top: 20px;
+        }
+        footer { padding: 30px; text-align: center; color: #64748b; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="btn-style"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        <div></div>
+    </header>
+
+    <main class="container">
+        <div class="event-card">
+            <h1>Product Trials</h1>
+            <div class="status-badge"><i class="fas fa-clock"></i> Registration Opening Soon</div>
+            
+            <div class="iframe-wrap">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdMQjoKLqQsBtTg8IJE-R1dnEFxL9AXMZq55K8R-gOctJ6DYw/viewform?embedded=true" 
+                        width="100%" height="100%" frameborder="0">Loading Form...</iframe>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2026 Adhyatmantan Farm. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
