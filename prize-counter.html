@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SoulSoil Sync | Professional Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root { --blue: #4285F4; --red: #EA4335; --yellow: #FBBC05; --green: #34A853; --dark: #050505; }
+        
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; padding: 40px 5%; color: #fff;
+            /* Sharp Google Color Gradient Background */
+            background: linear-gradient(135deg, 
+                var(--blue) 0%, var(--blue) 25%, 
+                var(--red) 25%, var(--red) 50%, 
+                var(--yellow) 50%, var(--yellow) 75%, 
+                var(--green) 75%, var(--green) 100%);
+            background-attachment: fixed;
+        }
+
+        /* Overlay for premium glass look */
+        .glass-overlay { 
+            background: rgba(0, 0, 0, 0.85); 
+            border-radius: 30px; 
+            padding: 40px; 
+            min-height: 100vh;
+        }
+
+        .hub-container { max-width: 900px; margin: auto; }
+        
+        .back-btn { 
+            display: inline-block; padding: 10px 20px; background: rgba(255,255,255,0.1); 
+            border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; color: #fff; 
+            text-decoration: none; font-weight: 600; margin-bottom: 30px; transition: 0.3s;
+        }
+        .back-btn:hover { background: #fff; color: #000; }
+
+        .prize-counter-section { background: rgba(255,255,255,0.05); border: 1px solid var(--yellow); padding: 25px; border-radius: 20px; margin-bottom: 40px; text-align: center; }
+        
+        .event-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 30px; margin-bottom: 25px; transition: 0.3s; }
+        
+        .content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
+        .event-card.active .content { max-height: 5000px; margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 25px; }
+
+        .toggle-arrow { cursor: pointer; font-size: 1.5rem; color: #fff; transition: 0.3s; padding: 10px; }
+        .event-card.active .toggle-arrow { transform: rotate(180deg); }
+
+        .participant-box { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.1); }
+        .btn-cert { padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 0.8rem; font-weight: 800; color: #fff; }
+        
+        .prize-label { color: var(--yellow); font-weight: 800; font-size: 0.85rem; margin-bottom: 10px; text-transform: uppercase; }
+        .category-box { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 4px solid var(--yellow); }
+    </style>
+</head>
+<body>
+
+<div class="glass-overlay">
+    <div class="hub-container">
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        
+        <div style="text-align:center; padding:30px 15px;">
+
+    <h1 style="margin:0; font-size:clamp(36px,6vw,56px); font-weight:800; color:#fff; line-height:1.15;">
+        The SoulSoil Sync
+    </h1>
+
+    <p style="margin:18px 0 8px; font-size:clamp(14px,2vw,16px); color:#d1d5db; letter-spacing:2px; text-transform:uppercase;">
+        Presented by
+    </p>
+
+    <h2 style="margin:0; font-size:clamp(24px,4vw,34px); font-weight:700; color:var(--blue);">
+        ADHYATMANTAN FARMS
+    </h2>
+
+    <div style="width:80px; height:3px; background:var(--blue); margin:18px auto; border-radius:10px;"></div>
+
+    <p style="margin:0; font-size:clamp(16px,2.5vw,22px); font-style:italic; color:rgba(255,255,255,.9);">
+        ✦ Where Soul Meets Soil ✦
+    </p>
+
+</div>
+
+        <div class="prize-counter-section">
+            <h3 style="margin:0; color:var(--yellow);"><i class="fas fa-trophy"></i> PRIZE COUNTER</h3>
+            <p style="margin:8px 0 0 0; opacity:0.8;">Rewards for top performers!</p>
+        </div>
+
+        <!-- Event 1 -->
+        <div class="event-card" id="card1" style="border-left: 6px solid var(--blue);">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div><h2 style="margin:0;">Product Trial</h2><p style="color:var(--blue); margin:5px 0;">Capacity: 35 Seats</p></div>
+                <i class="fas fa-chevron-down toggle-arrow" onclick="toggleCard('card1')"></i>
+            </div>
+            <div class="content">
+                <div class="prize-label">Prizes</div>
+                <div class="category-box"><strong>🏆 Winner:</strong> Premium Swag Kit</div>
+                <div class="category-box"><strong>🥈 Runner Up:</strong> Bluetooth Earbuds</div>
+                <div class="category-box"><strong>🏅 Participants:</strong> Amazon Voucher</div>
+                <p style="color:var(--blue); font-weight:700; text-align:center; margin-top:20px;">Claim your participation certificate here</p>
+                <div id="list1"></div>
+            </div>
+        </div>
+
+        <!-- Event 2 -->
+        <div class="event-card" id="card2" style="border-left: 6px solid var(--green);">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div><h2 style="margin:0;">Campus Interview</h2><p style="color:var(--green); margin:5px 0;">Capacity: 12 Seats</p></div>
+                <i class="fas fa-chevron-down toggle-arrow" onclick="toggleCard('card2')"></i>
+            </div>
+            <div class="content">
+                <div class="prize-label">Prizes</div>
+                <div class="category-box"><strong>🏆 Prizes:</strong> Internship Placement + Mentorship</div>
+                <p style="color:var(--blue); font-weight:700; text-align:center; margin-top:20px;">Claim your participation certificate here</p>
+                <div id="list2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleCard(id) { document.getElementById(id).classList.toggle('active'); }
+    const colors = ['var(--blue)', 'var(--red)', 'var(--yellow)', 'var(--green)'];
+    function populate(id, count) {
+        let container = document.getElementById(id);
+        for(let i=1; i<=count; i++) {
+            let color = colors[(i-1) % colors.length];
+            container.innerHTML += `
+                <div class="participant-box">
+                    <strong>Participant ${i}</strong>
+                    <a href="#" class="btn-cert" style="background:${color}">Download Cert</a>
+                </div>`;
+        }
+    }
+    populate('list1', 35);
+    populate('list2', 12);
+</script>
+</body>
+</html>
