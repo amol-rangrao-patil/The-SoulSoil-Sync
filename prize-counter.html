@@ -119,21 +119,91 @@
 </div>
 
 <script>
-    function toggleCard(id) { document.getElementById(id).classList.toggle('active'); }
+    function toggleCard(id) { 
+        document.getElementById(id).classList.toggle('active'); 
+    }
+
     const colors = ['var(--blue)', 'var(--red)', 'var(--yellow)', 'var(--green)'];
-    function populate(id, count) {
+
+    // १. इव्हेंट १ साठी ३५ पार्टिसिपंट्सची लिस्ट
+    const list1Data = [
+        { name: "Participant 1", link: "https://example.com/cert1.pdf" },
+        { name: "Participant 2", link: "https://example.com/cert2.pdf" },
+        { name: "Participant 3", link: "https://example.com/cert1.pdf" },
+        { name: "Participant 4", link: "https://example.com/cert2.pdf" },
+        { name: "Participant 5", link: "https://example.com/cert1.pdf" },
+        { name: "Participant 6", link: "https://example.com/cert2.pdf" },
+        { name: "Participant 7", link: "https://example.com/cert1.pdf" },
+        { name: "Participant 8", link: "https://example.com/cert2.pdf" },
+        { name: "Participant 9", link: "https://example.com/cert1.pdf" },
+        { name: "Participant 10", link: "https://example.com/cert2.pdf" },
+        { name: "Participant 11", link: "https://example.com/cert1.pdf" },
+        { name: "Participant 12", link: "https://example.com/cert2.pdf" },
+        { name: "Participant 13", link: "https://example.com/cert1.pdf" },
+        { name: "Participant 14", link: "https://example.com/cert2.pdf" },
+        { name: "Participant 15", link: "https://example.com/cert1.pdf" },
+        { name: "Participant 16", link: "https://example.com/cert2.pdf" },
+        { name: "Participant 17", link: "https://example.com/cert1.pdf" },
+        { name: "Participant 18", link: "https://example.com/cert2.pdf" },
+        { name: "Participant 19", link: "https://example.com/cert1.pdf" },
+        { name: "Participant 20", link: "https://example.com/cert2.pdf" },
+        { name: "Participant 21", link: "https://example.com/cert1.pdf" },
+        { name: "Participant 22", link: "https://example.com/cert2.pdf" },
+        { name: "Participant 23", link: "https://example.com/cert1.pdf" },
+        { name: "Participant 24", link: "https://example.com/cert2.pdf" },
+        { name: "Participant 25", link: "https://example.com/cert1.pdf" },
+        { name: "Participant 26", link: "https://example.com/cert2.pdf" },
+        { name: "Participant 27", link: "https://example.com/cert1.pdf" },
+        { name: "Participant 28", link: "https://example.com/cert2.pdf" },
+        { name: "Participant 29", link: "https://example.com/cert1.pdf" },
+        { name: "Participant 30", link: "https://example.com/cert2.pdf" },
+        { name: "Participant 31", link: "https://example.com/cert1.pdf" },
+        { name: "Participant 32", link: "https://example.com/cert2.pdf" },
+        { name: "Participant 33", link: "https://example.com/cert1.pdf" },
+        { name: "Participant 34", link: "https://example.com/cert2.pdf" },
+        { name: "Participant 35", link: "https://example.com/cert1.pdf" },
+        
+
+        // ...असे ३५ पर्यंत
+    ];
+
+    // २. इव्हेंट २ साठी १२ पार्टिसिपंट्सची लिस्ट
+    const list2Data = [
+        { name: "Participant 1", link: "https://example.com/event2-cert1.pdf" },
+        { name: "Participant 2", link: "https://example.com/event2-cert2.pdf" },
+        { name: "Participant 3", link: "https://example.com/event2-cert1.pdf" },
+        { name: "Participant 4", link: "https://example.com/event2-cert2.pdf" },
+        { name: "Participant 5", link: "https://example.com/event2-cert1.pdf" },
+        { name: "Participant 6", link: "https://example.com/event2-cert2.pdf" },
+        { name: "Participant 7", link: "https://example.com/event2-cert1.pdf" },
+        { name: "Participant 8", link: "https://example.com/event2-cert2.pdf" },
+        { name: "Participant 9", link: "https://example.com/event2-cert1.pdf" },
+        { name: "Participant 10", link: "https://example.com/event2-cert2.pdf" },
+        { name: "Participant 11", link: "https://example.com/event2-cert1.pdf" },
+        { name: "Participant 12", link: "https://example.com/event2-cert2.pdf" },
+        
+        // ...असे १२ पर्यंत
+    ];
+
+    function populate(id, dataList) {
         let container = document.getElementById(id);
-        for(let i=1; i<=count; i++) {
-            let color = colors[(i-1) % colors.length];
+        container.innerHTML = ''; // Container रिकामी करा
+
+        dataList.forEach((item, index) => {
+            let color = colors[index % colors.length];
             container.innerHTML += `
                 <div class="participant-box">
-                    <strong>Participant ${i}</strong>
-                    <a href="#" class="btn-cert" style="background:${color}">Download Cert</a>
+                    <strong>${item.name}</strong>
+                    <a href="${item.link}" class="btn-cert" style="background:${color}" target="_blank">
+                        Download Cert
+                    </a>
                 </div>`;
-        }
+        });
     }
-    populate('list1', 35);
-    populate('list2', 12);
+
+    // ३. दोन्ही लिस्टसाठी फंक्शन कॉल करा
+    populate('list1', list1Data);
+    populate('list2', list2Data);
 </script>
 </body>
 </html>
