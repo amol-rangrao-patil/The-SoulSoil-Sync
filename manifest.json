@@ -1,17 +1,17 @@
 {
-  "name": "The SoulSoil Sync",
-  "short_name": "SoulSoil",
+  "name": "The SoulSoil Sync Presented by ADHYATMANTHAN FARMS",
+  "short_name": " The SoulSoil Sync",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "icons": [
     {
-      "src": "/images/your-logo.png",
+      "src": "images/Logo.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/images/your-logo.png",
+      "src": "images/Logo.png",
       "sizes": "512x512",
       "type": "image/png"
     }
