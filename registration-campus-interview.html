@@ -75,7 +75,17 @@
     <main class="container">
         <div class="event-card">
             <h1>Campus Interviews</h1>
-            <div class="status-badge"><i class="fas fa-clock"></i> Registration Opening Soon</div>
+           <!-- Status Badge -->
+<div class="status-badge"><i class="fas fa-clock"></i> <span id="status-text">Loading...</span></div>
+
+<!-- Countdown Timer -->
+<div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 30px; font-family: monospace; color: white;">
+    <div style="text-align: center;"><div id="days" style="font-size: 2rem;">00</div><div style="font-size: 0.5rem; color: #64748b;">DAYS</div></div>
+    <div style="font-size: 1.5rem; margin-top: 5px;">:</div>
+    <div style="text-align: center;"><div id="hours" style="font-size: 2rem;">00</div><div style="font-size: 0.5rem; color: #64748b;">HRS</div></div>
+    <div style="font-size: 1.5rem; margin-top: 5px;">:</div>
+    <div style="text-align: center;"><div id="mins" style="font-size: 2rem;">00</div><div style="font-size: 0.5rem; color: #64748b;">MIN</div></div>
+</div>
             
             <div class="iframe-wrap">
                 <<iframe src="https://docs.google.com/forms/d/e/1FAIpQLScZnPxfzasn1eeLZh4BKELI8exH1LwrlnNx1o4kVSoQwOGvSA/viewform?embedded=true" width="640" height="1633" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
@@ -86,6 +96,49 @@
     <footer>
         <p>© 2026 Adhyatmantan Farm. All Rights Reserved.</p>
     </footer>
+
+    <script>
+    // तारखा सेटिंग
+    const startDateInput = "July 6, 2026 00:00:00"; 
+    const endDateInput = "July 10, 2026 23:59:59";
+    const eventDateInput = "July 14, 2026 10:00:00"; // इव्हेंटची तारीख
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const regStart = new Date(startDateInput).getTime();
+        const regEnd = new Date(endDateInput).getTime();
+        const eventDate = new Date(eventDateInput).getTime();
+        
+        const statusText = document.getElementById("status-text");
+        let targetDate;
+
+        if (now < regStart) {
+            targetDate = regStart;
+            statusText.innerText = "Registration Starts July 6";
+        } else if (now >= regStart && now <= regEnd) {
+            targetDate = regEnd;
+            statusText.innerText = "Registration Ends In";
+        } else if (now > regEnd && now < eventDate) {
+            targetDate = eventDate;
+            statusText.innerText = "Registration Closed - Event in";
+        } else {
+            statusText.innerText = "Event Started/Finished";
+            document.getElementById("days").innerText = "00";
+            document.getElementById("hours").innerText = "00";
+            document.getElementById("mins").innerText = "00";
+            return;
+        }
+
+        const diff = targetDate - now;
+        if (diff > 0) {
+            document.getElementById("days").innerText = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+            document.getElementById("hours").innerText = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+            document.getElementById("mins").innerText = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+        }
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+</script>
 
 </body>
 </html>
