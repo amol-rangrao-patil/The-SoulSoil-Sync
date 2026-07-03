@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Generator - The SoulSoil Sync </title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Montserrat:ital,wght@0,600;0,700;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- JSZip Engine for client-side compression -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --surface: #ffffff;
+            
+            /* Authentic Identity Google Palette */
+            --google-blue: #1a73e8;
+            --google-red: #ea4335;
+            --google-yellow: #fbbc05;
+            --google-green: #34a853;
+            
+            --text-main: #1f1f1f;
+            --text-muted: #5f6368;
+            --border: #dadce0;
+            --radius-lg: 16px;
+            --radius-md: 8px;
+            --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- GOOGLE DESIGN SYSTEM NAVBAR --- */
+        .navbar {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 22px;
+            color: #3c4043;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            user-select: none;
+        }
+        .navbar-brand span.dots-container {
+            display: flex;
+            gap: 3px;
+        }
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+        .dot-b { background: var(--google-blue); }
+        .dot-r { background: var(--google-red); }
+        .dot-y { background: var(--google-yellow); }
+        .dot-g { background: var(--google-green); }
+
+        /* --- WAVE LETTER ANIMATION --- */
+        .wave-text {
+            display: inline-flex;
+        }
+        .wave-text span {
+            display: inline-block;
+            animation: bounceUpDown 2s infinite ease-in-out;
+        }
+        .wave-text span.space {
+            width: 6px;
+        }
+
+        @keyframes bounceUpDown {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+
+        .badge-deadline {
+            background: #fce8e6;
+            color: var(--google-red);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid #fad2cf;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* --- WORKBENCH LAYOUT GRID --- */
+        .workbench {
+            max-width: 1440px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 40px;
+            box-sizing: border-box;
+            display: grid;
+            grid-template-columns: 440px 1fr;
+            gap: 40px;
+            flex: 1;
+        }
+
+        /* --- CONTROL CARD PANEL --- */
+        .control-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            padding: 30px;
+            height: fit-content;
+            box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #3c4043;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title i {
+            color: var(--google-blue);
+        }
+        .form-group {
+            margin-bottom: 22px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            color: #3c4043;
+        }
+        
+        /* Dropzones */
+        .file-dropzone {
+            border: 1px dashed var(--border);
+            padding: 22px;
+            border-radius: var(--radius-md);
+            text-align: center;
+            background: #f8fafc;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+        .file-dropzone:hover {
+            border-color: var(--google-blue);
+            background: #f4f8fe;
+        }
+        .file-dropzone i {
+            font-size: 24px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .file-dropzone p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        .file-dropzone input[type="file"] {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        /* Inputs */
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 12px 14px;
+            box-sizing: border-box;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            background: #ffffff;
+            color: var(--text-main);
+            transition: var(--transition-smooth);
+            font-family: inherit;
+        }
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: var(--google-blue);
+            box-shadow: 0 0 0 2px rgba(26,115,232,0.2);
+        }
+        textarea {
+            height: 110px;
+            resize: vertical;
+            font-family: monospace;
+            font-size: 13px;
+            background: #f8fafc;
+        }
+
+        /* Action Buttons Suite */
+        .btn-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 25px;
+        }
+        .btn-ui {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: var(--transition-smooth);
+        }
+        .btn-ui-primary {
+            background: var(--google-blue);
+            color: #ffffff;
+        }
+        .btn-ui-primary:hover {
+            background: #1557b0;
+            box-shadow: 0 1px 3px 0 rgba(66,133,244,0.3);
+        }
+        .btn-ui-success {
+            background: var(--google-green);
+            color: #ffffff;
+        }
+        .btn-ui-success:hover {
+            background: #137333;
+            box-shadow: 0 1px 3px 0 rgba(52,168,83,0.3);
+        }
+        
+        /* Progress Bar */
+        .status-container {
+            margin-top: 20px;
+            background: #f8fafc;
+            border-radius: var(--radius-md);
+            padding: 16px;
+            border: 1px solid var(--border);
+            display: none;
+        }
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .progress-bar-bg {
+            background: #e8eaed;
+            height: 6px;
+            border-radius: 100px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            background: linear-gradient(90deg, var(--google-blue), var(--google-green));
+            width: 0%;
+            height: 100%;
+            transition: width 0.1s ease;
+        }
+
+        /* --- PREVIEW PANEL --- */
+        .preview-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .preview-header h3 {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .canvas-frame {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        canvas {
+            width: 100%;
+            height: auto;
+            border-radius: var(--radius-md);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background: #f8fafc;
+        }
+
+        /* --- GOOGLE-INSPIRED PROFESSIONAL FOOTER --- */
+        footer {
+            background: #ffffff;
+            color: var(--text-muted);
+            padding: 40px;
+            border-top: 1px solid var(--border);
+            font-size: 14px;
+            margin-top: auto;
+        }
+        .footer-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 30px;
+            margin-bottom: 20px;
+        }
+        .footer-logo {
+            color: #3c4043;
+            font-weight: 600;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .footer-socials {
+            display: flex;
+            gap: 16px;
+        }
+        .footer-socials a {
+            background: #f8fafc;
+            color: var(--text-muted);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            transition: var(--transition-smooth);
+        }
+        .footer-socials a:hover {
+            background: #f1f3f4;
+            color: var(--google-blue);
+            border-color: #aecbfa;
+            transform: translateY(-2px);
+        }
+        .footer-socials a svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+        .footer-meta {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        @media (max-width: 992px) {
+            .workbench { grid-template-columns: 1fr; padding: 20px; }
+            .navbar { padding: 14px 24px; }
+            .footer-main, .footer-meta { flex-direction: column; gap: 24px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Application Top Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <span class="dots-container">
+                <span class="dot dot-b"></span>
+                <span class="dot dot-r"></span>
+                <span class="dot dot-y"></span>
+                <span class="dot dot-g"></span>
+            </span>
+            <span class="wave-text" id="animatedBrand"></span>
+        </div>
+        <div class="badge-deadline">
+            Deveoped by Amol Patil
+        </div>
+    </nav>
+
+    <!-- Core Grid Workbench Architecture Workspace -->
+    <main class="workbench">
+        
+        <!-- Sidebar Management Panel Controls -->
+        <div class="control-card">
+            <div class="section-title"><i class="fa-solid fa-sliders"></i> Engine Configuration</div>
+            
+            <div class="form-group">
+                <label>1. Certificate Base Template</label>
+                <div class="file-dropzone">
+                    <i class="fa-solid fa-image" style="color: var(--google-blue);"></i>
+                    <p>Select <strong>Certificate of Participation.jpg</strong></p>
+                    <input type="file" id="templateInput" accept="image/*">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>2. Management Signature Overlay</label>
+                <div class="file-dropzone">
+                    <i class="fa-solid fa-pen-nib" style="color: var(--google-green);"></i>
+                    <p>Load transparent PNG signature graphic</p>
+                    <input type="file" id="sigImageInput" accept="image/*">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>3. Event Date</label>
+                <input type="text" id="dateInput" placeholder="e.g., July 3, 2026" value="July 3, 2026">
+            </div>
+
+            <div class="form-group">
+                <label>4. Recipient Roster (One name per line)</label>
+                <textarea id="namesInput" placeholder="Amol Patil&#10;John Doe&#10;Jane Smith">Amol Patil&#10;John Doe&#10;Jane Smith</textarea>
+            </div>
+
+            <div class="btn-stack">
+                <button class="btn-ui btn-ui-primary" id="previewBtn">
+                    <i class="fa-solid fa-arrows-rotate"></i> Sync Live View
+                </button>
+                <button class="btn-ui btn-ui-success" id="bulkDownloadBtn">
+                    <i class="fa-solid fa-download"></i> Run Bulk Generation
+                </button>
+            </div>
+
+            <!-- Asynchronous Visual Processing Progress System -->
+            <div class="status-container" id="statusContainer">
+                <div class="status-header">
+                    <span id="statusMessage">Processing pipeline...</span>
+                    <span id="statusPercent" style="color: var(--google-green);">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progressBarFill"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Realtime Rendering Workspace Display Port -->
+        <div class="preview-wrapper">
+            <div class="preview-header">
+                <h3>Live Workspace Frame Monitor</h3>
+            </div>
+            <div class="canvas-frame">
+                <canvas id="certCanvas"></canvas>
+            </div>
+        </div>
+    </main>
+
+    <!-- Professional Interactive Developer Footer -->
+    <footer>
+        <div class="footer-main">
+            <div class="footer-logo">
+                <i class="fa-solid fa-seedling" style="color: var(--google-green);"></i> Presented by ADHYATMANTAN FARMS
+            </div>
+            <div class="footer-socials">
+                <!-- GitHub -->
+                <a href="https://github.com/amol-rangrao-patil" target="_blank" aria-label="GitHub">
+                    <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/amol-rangrao-patil" target="_blank" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+                <!-- Modern X Logo -->
+                <a href="https://x.com/amol_twit_now" target="_blank" aria-label="X (formerly Twitter)">
+                    <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/amol_insta_now" target="_blank" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+            </div>
+        </div>
+       <div class="footer-meta" style="text-align: center; padding: 20px 0;">
+    <div class="footer-copyright">
+        <a href="index.html" style="color: #8a99ad; text-decoration: none; font-family: sans-serif; font-size: 14px; cursor: pointer;">
+            &copy; 2026 Adhyatmantan Farm. All Rights Reserved.
+        </a>
+    </div>
+</div>
+    </footer>
+
+    <script>
+        const brandString = "The SoulSoil Sync   ";
+        const brandContainer = document.getElementById("animatedBrand");
+        
+        brandString.split("").forEach((char, index) => {
+            const span = document.createElement("span");
+            if (char === " ") {
+                span.classList.add("space");
+            } else {
+                span.textContent = char;
+                span.style.animationDelay = `${index * 0.08}s`;
+            }
+            brandContainer.appendChild(span);
+        });
+
+        const canvas = document.getElementById('certCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const templateInput = document.getElementById('templateInput');
+        const sigImageInput = document.getElementById('sigImageInput');
+        const dateInput = document.getElementById('dateInput');
+        const namesInput = document.getElementById('namesInput');
+        const previewBtn = document.getElementById('previewBtn');
+        const bulkDownloadBtn = document.getElementById('bulkDownloadBtn');
+        
+        const statusContainer = document.getElementById('statusContainer');
+        const statusMessage = document.getElementById('statusMessage');
+        const statusPercent = document.getElementById('statusPercent');
+        const progressBarFill = document.getElementById('progressBarFill');
+
+        let bgImage = new Image();
+        let sigImage = new Image();
+        let isTemplateLoaded = false;
+        let isSigLoaded = false;
+
+        templateInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) { bgImage.src = event.target.result; };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        bgImage.onload = function() {
+            canvas.width = bgImage.naturalWidth;
+            canvas.height = bgImage.naturalHeight;
+            isTemplateLoaded = true;
+            renderSinglePreview();
+        };
+
+        sigImageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) { sigImage.src = event.target.result; };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        sigImage.onload = function() {
+            isSigLoaded = true;
+            renderSinglePreview();
+        };
+
+        function getNameList() {
+            return namesInput.value.split('\n')
+                .map(name => name.trim())
+                .filter(name => name.length > 0);
+        }
+
+        function drawCertificateData(context, targetCanvas, nameText, dateText) {
+            context.drawImage(bgImage, 0, 0);
+
+            // 1. Participant Name Layer Alignment Metrics
+            context.font = "italic 700 " + Math.round(targetCanvas.height * 0.055) + "px 'Montserrat', sans-serif";
+            context.fillStyle = "#1f1f1f"; 
+            context.textAlign = "center";
+            context.textBaseline = "bottom";
+            
+            const nameX = targetCanvas.width * 0.50;
+            const nameY = targetCanvas.height * 0.535; 
+            context.fillText(nameText, nameX, nameY);
+
+            // 2. Timeline Calendar Date Stamp
+            context.font = "500 " + Math.round(targetCanvas.height * 0.025) + "px 'Plus Jakarta Sans', sans-serif";
+            context.fillStyle = "#444746";
+            
+            const dateX = targetCanvas.width * 0.188;
+            const dateY = targetCanvas.height * 0.84;
+            context.fillText(dateText, dateX, dateY);
+
+            // 3. Signature Layout Matrix Mapping
+            if (isSigLoaded) {
+                const sigWidth = targetCanvas.width * 0.14; 
+                const sigHeight = (sigImage.naturalHeight / sigImage.naturalWidth) * sigWidth;
+                
+                const sigX = (targetCanvas.width * 0.812) - (sigWidth / 2);
+                const sigY = (targetCanvas.height * 0.842) - sigHeight - 5; 
+                
+                context.drawImage(sigImage, sigX, sigY, sigWidth, sigHeight);
+            }
+        }
+
+        function renderSinglePreview() {
+            if (!isTemplateLoaded) {
+                canvas.width = 1000;
+                canvas.height = 707;
+                ctx.fillStyle = "#f8fafc";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "#5f6368";
+                ctx.font = "15px 'Plus Jakarta Sans'";
+                ctx.textAlign = "center";
+                ctx.fillText("Ready. Please upload 'Certificate of Participation .jpg' context template...", canvas.width/2, canvas.height/2);
+                return;
+            }
+            const names = getNameList();
+            const firstParticipant = names.length > 0 ? names[0] : "Roster Data Line Item Preview";
+            drawCertificateData(ctx, canvas, firstParticipant, dateInput.value);
+        }
+
+        previewBtn.addEventListener('click', renderSinglePreview);
+        dateInput.addEventListener('input', renderSinglePreview);
+
+        window.onload = () => { renderSinglePreview(); };
+
+        // --- BULK EXTRACTION ZIP PACKAGING ENGINE ---
+        bulkDownloadBtn.addEventListener('click', async () => {
+            const names = getNameList();
+            if (names.length === 0 || !isTemplateLoaded) {
+                alert("Roster configuration context empty or base workspace template missing.");
+                return;
+            }
+
+            statusContainer.style.display = "block";
+            const zip = new JSZip();
+
+            const exportCanvas = document.createElement('canvas');
+            exportCanvas.width = canvas.width;
+            exportCanvas.height = canvas.height;
+            const exportCtx = exportCanvas.getContext('2d');
+
+            for(let i = 0; i < names.length; i++) {
+                const currentParticipant = names[i];
+                const progressInt = Math.round(((i + 1) / names.length) * 100);
+                
+                statusMessage.textContent = `Compiling asset structure: ${currentParticipant}`;
+                statusPercent.textContent = `${progressInt}%`;
+                progressBarFill.style.width = `${progressInt}%`;
+
+                drawCertificateData(exportCtx, exportCanvas, currentParticipant, dateInput.value);
+
+                const blob = await new Promise(resolve => exportCanvas.toBlob(resolve, 'image/png', 1.0));
+                
+                // FORMAT CONFIG: Strict only name output formatting
+                const pureNameFile = currentParticipant.replace(/[^a-zA-Z0-9]/g, "_");
+                zip.file(`${pureNameFile}.png`, blob);
+            }
+
+            statusMessage.textContent = "Packing files into compressed archive package...";
+            
+            zip.generateAsync({type: "blob"}).then(function(content) {
+                const zipLink = document.createElement('a');
+                zipLink.download = "SoulSoil_Sync_Certificates.zip";
+                zipLink.href = URL.createObjectURL(content);
+                zipLink.click();
+                
+                statusMessage.textContent = "Production pipeline run completed successfully!";
+                setTimeout(() => { statusContainer.style.display = "none"; }, 4000);
+            });
+        });
+    </script>
+</body>
+</html>
