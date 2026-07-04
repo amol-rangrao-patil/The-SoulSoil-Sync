@@ -22,48 +22,170 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&display=swap');
         
-        body { margin: 0; background: #050505; color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; padding: 40px 20px; }
-        
-        .bg-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
-        .orb { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.3; }
+        :root {
+            --google-blue: #4285F4;
+            --google-red: #EA4335;
+            --google-yellow: #FBBC05;
+            --google-green: #34A853;
+            --dark-bg: #030712;
+            --card-bg: rgba(17, 24, 39, 0.45);
+            --text-light: #f9fafb;
+            --text-muted: #9ca3af;
+            --body-bg: var(--dark-bg);
+            --content-text: var(--text-light);
+            --border-color: rgba(255, 255, 255, 0.06);
+            --card-shadow: rgba(0, 0, 0, 0.6);
+            --blur-effect: blur(16px);
+            --glow-color: rgba(66, 133, 244, 0.25);
+            
+            --orb-blue: rgba(66, 133, 244, 0.3);
+            --orb-red: rgba(234, 67, 53, 0.25);
+            --orb-blur: 130px;
+            --container-glow: none;
+        }
 
-        .container { max-width: 1000px; margin: 0 auto; }
-        .main-grid { display: grid; grid-template-columns: 1fr 320px; gap: 30px; }
+        /* --- Ultra-Premium Light Mode with 80% Visibility Deep Corporate Color Wave --- */
+        body.light-grid-theme {
+            --body-bg: #e2e8f0;
+            --content-text: #0f172a;
+            --card-bg: rgba(255, 255, 255, 0.88);
+            --text-muted: #334155;
+            --border-color: rgba(66, 133, 244, 0.4);
+            --card-shadow: rgba(15, 23, 42, 0.1);
+            --glow-color: rgba(66, 133, 244, 0.35);
+            
+            --orb-blue: rgba(66, 133, 244, 0.35);
+            --orb-red: rgba(234, 67, 53, 0.28);
+            --orb-blur: 100px;
+            
+            /* High-Intensity Royal Blue Glow and Sparks to lift containers */
+            --container-glow: 0 15px 35px rgba(66, 133, 244, 0.22), 0 0 25px rgba(66, 133, 244, 0.15);
+            
+            /* 80% Strong Industrial Darker Gradient Colors for Background Animation */
+            background: linear-gradient(135deg, #cbd5e1, #bfdbfe, #fecaca, #fef08a, #bbf7d0);
+            background-size: 400% 400%;
+            animation: gradientWave 15s ease infinite;
+        }
 
-        .card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); padding: 30px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 20px; }
+        /* Technical Blueprint Notebook layout over the moving background */
+        body.light-grid-theme::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -3;
+            background-image: 
+                linear-gradient(rgba(66, 133, 244, 0.06) 1.5px, transparent 1.5px),
+                linear-gradient(90deg, rgba(66, 133, 244, 0.06) 1.5px, transparent 1.5px);
+            background-size: 30px 30px;
+            pointer-events: none;
+        }
+
+        @keyframes gradientWave {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--body-bg);
+            color: var(--content-text);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            padding: 60px 20px;
+            transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+        }
+
+        /* --- Dynamic Background Lights (Active in Dark Mode) --- */
+        .google-orb {
+            position: absolute; border-radius: 50%; z-index: -2; filter: blur(var(--orb-blur)); pointer-events: none;
+        }
+        .orb-1 { background-color: var(--orb-blue); width: 600px; height: 600px; top: -10%; left: -10%; }
+        .orb-2 { background-color: var(--orb-red); width: 500px; height: 500px; bottom: -10%; right: -10%; }
+
+        /* --- Floating Adaptive Theme Switcher --- */
+        .theme-toggle-btn {
+            position: absolute; top: 35px; right: 6%; background-color: var(--card-bg); backdrop-filter: var(--blur-effect); -webkit-backdrop-filter: var(--blur-effect); border: 2px solid var(--google-blue); padding: 14px; border-radius: 50%; cursor: pointer; box-shadow: 0 10px 30px var(--card-shadow); display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; z-index: 100; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .theme-toggle-btn:hover { transform: scale(1.1) rotate(12deg); }
+        .theme-toggle-btn .fa-sun { color: var(--google-yellow); display: none; }
+        .theme-toggle-btn .fa-moon { color: var(--google-blue); display: block; }
+        body.light-grid-theme .theme-toggle-btn .fa-sun { display: block; }
+        body.light-grid-theme .theme-toggle-btn .fa-moon { display: none; }
+        body.light-grid-theme .theme-toggle-btn { border-color: #1e40af; }
+
+        /* --- Back Button --- */
+        .btn-back {
+            position: absolute; top: 35px; left: 6%; display: inline-flex; align-items: center; gap: 8px; color: var(--content-text); text-decoration: none; font-weight: 600; font-size: 0.95rem; padding: 12px 24px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 30px; backdrop-filter: var(--blur-effect); transition: 0.3s; z-index: 100;
+        }
+        .btn-back:hover { border-color: var(--google-blue); transform: translateX(-4px); }
+
+        /* --- Layout Container Architecture --- */
+        .container { max-width: 1100px; margin: 60px auto 0 auto; width: 100%; }
+        .main-grid { display: grid; grid-template-columns: 1fr 340px; gap: 30px; margin-top: 20px; }
+
+        .card { 
+            background-color: var(--card-bg); backdrop-filter: var(--blur-effect); -webkit-backdrop-filter: var(--blur-effect); border: 1px solid var(--border-color); box-shadow: var(--container-glow), 0 20px 40px var(--card-shadow); padding: 30px; border-radius: 24px; margin-bottom: 20px; transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s; 
+        }
         
-        .sidebar-btn { display: block; width: 100%; padding: 15px; margin-bottom: 10px; border-radius: 12px; text-align: center; font-weight: 700; text-decoration: none; color: #fff; transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; }
-        .btn-prize { background: #FBBC05; color: #000; border: none; }
-        .btn-candidate { background: #4285F4; border: none; }
+        .sidebar-btn { display: block; width: 100%; padding: 15px; margin-bottom: 10px; border-radius: 12px; text-align: center; font-weight: 700; text-decoration: none; color: #fff; transition: 0.3s; border: 1px solid var(--border-color); font-size: 0.9rem; }
+        .btn-prize { background: var(--google-yellow); color: #000; border: none; }
+        .btn-candidate { background: var(--google-blue); border: none; }
         .sidebar-btn:hover { transform: scale(1.02); filter: brightness(1.2); }
 
         .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .meta-item { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; font-size: 0.9rem; }
+        .meta-item { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; font-size: 0.9rem; color: var(--content-text); border: 1px solid var(--border-color); }
+        body.light-grid-theme .meta-item { background: rgba(0, 0, 0, 0.03); }
         
-        .q-item { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 3px solid #4285F4; font-size: 0.9rem; }
-        
-        @media (max-width: 850px) { .main-grid { grid-template-columns: 1fr; } }
+        .q-item { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 4px solid var(--google-blue); font-size: 0.9rem; color: var(--content-text); }
+        body.light-grid-theme .q-item { background: rgba(0, 0, 0, 0.03); }
 
-        footer { padding: 30px; text-align: center; color: #64748b; font-size: 0.9rem; }
+        @media (max-width: 968px) { 
+            .main-grid { grid-template-columns: 1fr; } 
+            body { padding-top: 100px; }
+            .btn-back, .theme-toggle-btn { top: 25px; }
+        }
+
+        .btn-back { position: absolute; top: 35px; left: 6%; display: inline-flex; align-items: center; gap: 8px; color: var(--text-light); text-decoration: none; font-weight: 600; padding: 12px 24px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 30px; backdrop-filter: var(--blur-effect); transition: 0.3s; }
+        body.light-grid-theme .btn-back { color: #0f172a; }
+
         
+        footer { padding: 40px 0 20px 0; text-align: center; font-size: 0.9rem; }
+        footer a { color: var(--text-muted); text-decoration: none; transition: 0.2s; }
+        footer a:hover { color: var(--google-blue); }
     </style>
 </head>
 <body>
-    <div class="bg-container">
-        <div class="orb" style="background:#4285F4; width:400px; height:400px; top:-10%; left:-10%;"></div>
-        <div class="orb" style="background:#EA4335; width:350px; height:350px; bottom:-10%; right:-10%;"></div>
-    </div>
+    <!-- Dynamic Mesh Background Orbs (Active in Dark mode) -->
+    <div class="google-orb orb-1"></div>
+    <div class="google-orb orb-2"></div>
 
+    <!-- Top Navigation Controls -->
+       <a href="index.html" class="btn-back"><i class="fas fa-chevron-left"></i> Back to Home</a>
+    
+    <button class="theme-toggle-btn" onclick="togglePageTheme()" title="Switch Layout Environment">
+        <i class="fas fa-moon"></i><i class="fas fa-sun"></i>
+    </button>
+
+    <!-- Main Content Grid Matrix -->
     <div class="container">
-        <a href="index.html" style="display: inline-block; padding: 10px 20px; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; color: #888; text-decoration: none; font-size: 0.9rem; margin-bottom: 20px;">← Back to Home</a>
-        
-        <div class="main-grid" style="margin-top: 10px;">
+        <div class="main-grid">
+            
+            <!-- Left Primary Column -->
             <div>
                 <div class="card">
-                    <h1>Campus Interviews</h1>
-                    <p style="color: #bbb;">Prepare for industry-standard technical and behavioral interviews.</p>
+                    <h1 style="font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 10px;">Campus Interviews</h1>
+                    <p style="color: var(--text-muted); font-size: 1rem;">Prepare for industry-standard technical and behavioral interviews.</p>
+                    
                     <div class="meta-grid">
-                        <div class="meta-item">📅 <b>Date:</b> TDB</div>
+                        <div class="meta-item">📅 <b>Date:</b> TBD</div>
                         <div class="meta-item">📍 <b>Location:</b> Offline / Google Meet</div>
                         <div class="meta-item">👥 <b>Slots:</b> 12 Available</div>
                         <div class="meta-item">⚠️ <b>Rules:</b> Professional Attire</div>
@@ -71,24 +193,25 @@
                 </div>
 
                 <div class="card">
-                    <h3>Event Overview</h3>
-                    <p style="color: #ccc; line-height: 1.8;">Updated Soon!!</p>
+                    <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 15px;">Event Overview</h3>
+                    <p style="color: var(--text-muted); line-height: 1.8;">Updated Soon!!</p>
                 </div>
 
                 <div class="card">
-                    <h3>Interview Questions</h3>
+                    <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 15px;">Interview Questions</h3>
                     <div class="q-item">Updated Soon</div>
                     <div class="q-item">Updated Soon!!!</div>
-                   
                 </div>
             </div>
 
+            <!-- Right Sticky Sidebar Column -->
             <div style="position: sticky; top: 40px; height: fit-content;">
                 <div class="card">
-                    <h3 style="margin-top:0;">Quick Actions</h3>
+                    <h3 style="margin-top:0; font-size: 1.3rem; font-weight: 700; margin-bottom: 20px;">Quick Actions</h3>
                     <a href="prize-counter.html" class="sidebar-btn btn-prize">VIEW REWARDS</a>
-                    <hr style="border:0; border-top:1px solid #333; margin: 15px 0;">
-                    <p style="font-size: 0.8rem; color:#888; margin-bottom: 15px;">Join Meet Session:</p>
+                    
+                    <hr style="border:0; border-top:1px solid var(--border-color); margin: 20px 0;">
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px; font-weight: 600;">Join Meet Session:</p>
                     
                     <a href="#" class="sidebar-btn btn-candidate">JOIN MEET - CANDIDATE 1</a>
                     <a href="#" class="sidebar-btn btn-candidate">JOIN MEET - CANDIDATE 2</a>
@@ -104,12 +227,20 @@
                     <a href="#" class="sidebar-btn btn-candidate">JOIN MEET - CANDIDATE 12</a>
                 </div>
             </div>
+
         </div>
     </div>
     
+    <!-- Footer Section -->
     <footer>
-        <p>© 2026 Adhyatmantan Farm. All Rights Reserved.</p>
+        <a href="certificate-generator.html">&copy; 2026 Adhyatmantan Farm. All Rights Reserved.</a>
     </footer> 
-    
+
+    <!-- Theme Transition Script Integration Engine -->
+    <script>
+        function togglePageTheme() {
+            document.body.classList.toggle('light-grid-theme');
+        }
+    </script>
 </body>
 </html>

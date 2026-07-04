@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Product Trials | The SoulSoil Sync Presented by Adhyatmantan Farms</title>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 
     <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ffffff">
@@ -20,80 +22,218 @@
   <meta property="og:url" content="https://the-soulsoil-sync.vercel.app/product-trial-details.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="The SoulSoil Sync Presented by Adhyatmantan Farms">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&display=swap');
-        
-        body { margin: 0; background: #050505; color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; padding: 40px 20px; }
-        
+<style>
+        :root {
+            --google-blue: #4285F4;
+            --google-red: #EA4335;
+            --google-yellow: #FBBC05;
+            --google-green: #34A853;
+            --dark-bg: #050505;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --text-light: #f9fafb;
+            --text-muted: #9ca3af;
+            --body-bg: var(--dark-bg);
+            --content-text: var(--text-light);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --card-shadow: rgba(0, 0, 0, 0.6);
+            --blur-effect: blur(20px);
+            --glow-color: rgba(66, 133, 244, 0.25);
+            
+            --orb-blue: rgba(66, 133, 244, 0.3);
+            --orb-red: rgba(234, 67, 53, 0.25);
+            --orb-blur: 100px;
+            --container-glow: none;
+            
+            --card-desc-text: #ccc;
+            --card-sub-text: #bbb;
+            --btn-border: rgba(255, 255, 255, 0.1);
+            --back-btn-text: #ffffff;
+            --back-btn-border: rgba(255, 255, 255, 0.12);
+            --back-btn-bg: rgba(255, 255, 255, 0.06);
+            --footer-text: #64748b;
+        }
+
+        /* --- Ultra-Premium Light Mode with 80% Visibility Deep Corporate Color Wave --- */
+        body.light-grid-theme {
+            --body-bg: #e2e8f0;
+            --content-text: #0f172a;
+            --card-bg: rgba(255, 255, 255, 0.88);
+            --text-muted: #334155;
+            --border-color: rgba(66, 133, 244, 0.4);
+            --card-shadow: rgba(15, 23, 42, 0.1);
+            --glow-color: rgba(66, 133, 244, 0.35);
+            
+            --orb-blue: rgba(66, 133, 244, 0.35);
+            --orb-red: rgba(234, 67, 53, 0.28);
+            --orb-blur: 100px;
+            
+            /* High-Intensity Royal Blue Glow to lift containers */
+            --container-glow: 0 15px 35px rgba(66, 133, 244, 0.22), 0 0 25px rgba(66, 133, 244, 0.15);
+            
+            --card-desc-text: #1e293b;
+            --card-sub-text: #475569;
+            --btn-border: rgba(66, 133, 244, 0.2);
+            --back-btn-text: #0f172a;
+            --back-btn-border: rgba(66, 133, 244, 0.3);
+            --back-btn-bg: #f8fafc;
+            --footer-text: #475569;
+
+            /* 80% Strong Industrial Darker Gradient Colors for Background Animation */
+            background: linear-gradient(135deg, #cbd5e1, #bfdbfe, #fecaca, #fef08a, #bbf7d0);
+            background-size: 400% 400%;
+            animation: gradientWave 15s ease infinite;
+        }
+
+        /* Technical Blueprint Notebook layout over the moving background */
+        body.light-grid-theme::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -3;
+            background-image: 
+                linear-gradient(rgba(66, 133, 244, 0.06) 1.5px, transparent 1.5px),
+                linear-gradient(90deg, rgba(66, 133, 244, 0.06) 1.5px, transparent 1.5px);
+            background-size: 30px 30px;
+            pointer-events: none;
+        }
+
+        @keyframes gradientWave {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--body-bg);
+            color: var(--content-text);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            padding: 40px 20px;
+            transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+        }
+
         /* Background Orbs Animation */
         .bg-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
-        .orb { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.3; }
+        .orb { position: absolute; border-radius: 50%; filter: blur(var(--orb-blur)); opacity: 0.3; transition: filter 0.5s; }
 
-        .container { max-width: 1000px; margin: 0 auto; }
+        .container { max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
         .main-grid { display: grid; grid-template-columns: 1fr 320px; gap: 30px; }
 
-        .card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); padding: 30px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 20px; }
+        .card { 
+            background: var(--card-bg); 
+            backdrop-filter: var(--blur-effect); 
+            -webkit-backdrop-filter: var(--blur-effect);
+            padding: 30px; 
+            border-radius: 24px; 
+            border: 1px solid var(--border-color); 
+            margin-bottom: 20px; 
+            box-shadow: var(--container-glow), 0 20px 40px var(--card-shadow);
+            transition: background-color 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
         
+        /* Floating Adaptive Theme Switcher */
+        .theme-toggle-btn {
+            position: absolute; top: -10px; right: 0; background-color: var(--card-bg); backdrop-filter: var(--blur-effect); -webkit-backdrop-filter: var(--blur-effect); border: 2px solid var(--google-blue); padding: 14px; border-radius: 50%; cursor: pointer; box-shadow: 0 10px 30px var(--card-shadow); display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 10;
+        }
+      .theme-toggle-btn:hover { transform: scale(1.1) rotate(12deg); }
+        .theme-toggle-btn .fa-sun { color: var(--google-yellow); display: none; }
+        .theme-toggle-btn .fa-moon { color: var(--google-blue); display: block; }
+        body.light-grid-theme .theme-toggle-btn .fa-sun { display: block; }
+        body.light-grid-theme .theme-toggle-btn .fa-moon { display: none; }
+        body.light-grid-theme .theme-toggle-btn { border-color: #1e40af; }
+
+        /* Back Button Formatting - Match with image_746746.png and image_746769.png */
+        .btn-back-home {
+            display: inline-block; 
+            padding: 12px 32px; 
+            border: 1px solid var(--back-btn-border); 
+            border-radius: 100px; 
+            color: var(--back-btn-text); 
+            text-decoration: none; 
+            font-size: 1rem; 
+            font-weight: 600;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            margin-bottom: 20px; 
+            background: var(--back-btn-bg); 
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+        }
+        .btn-back-home:hover { 
+            border-color: var(--google-blue); 
+            transform: scale(1.03);
+            box-shadow: 0 4px 15px rgba(66, 133, 244, 0.15);
+        }
+
         /* Proper Button Formatting */
-        .sidebar-btn { display: block; width: 100%; padding: 18px; margin-bottom: 15px; border-radius: 12px; text-align: center; font-weight: 800; text-decoration: none; color: #fff; transition: 0.3s; border: 1px solid rgba(255, 255, 255, 0.1); }
-        .btn-join { background: #4285F4; }
-        .btn-prize { background: #FBBC05; color: #000; }
-        .btn-task { background: #EA4335; }
+        .sidebar-btn { display: block; width: 100%; padding: 18px; margin-bottom: 15px; border-radius: 12px; text-align: center; font-weight: 800; text-decoration: none; color: #fff; transition: 0.3s; border: 1px solid var(--btn-border); }
+        .btn-join { background: #4285F4; box-shadow: 0 4px 14px rgba(66, 133, 244, 0.3); }
+        .btn-prize { background: #FBBC05; color: #000; box-shadow: 0 4px 14px rgba(251, 188, 5, 0.3); }
+        .btn-task { background: #EA4335; box-shadow: 0 4px 14px rgba(234, 67, 53, 0.3); }
         .sidebar-btn:hover { transform: scale(1.02); filter: brightness(1.2); }
 
         .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .meta-item { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; font-size: 0.9rem; }
+        .meta-item { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; font-size: 0.9rem; border: 1px solid var(--border-color); }
+        body.light-grid-theme .meta-item { background: rgba(0, 0, 0, 0.03); }
         
-        @media (max-width: 850px) { .main-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 850px) { 
+            .main-grid { grid-template-columns: 1fr; } 
+            .theme-toggle-btn { top: -15px; right: 10px; }
+        }
 
-        footer { padding: 30px; text-align: center; color: #64748b; font-size: 0.9rem; }
+        footer { padding: 30px; text-align: center; color: var(--footer-text); font-size: 0.9rem; transition: color 0.3s; }
     </style>
 </head>
 <body>
     <div class="bg-container">
-        <div class="orb" style="background:#4285F4; width:400px; height:400px; top:-10%; left:-10%;"></div>
-        <div class="orb" style="background:#EA4335; width:350px; height:350px; bottom:-10%; right:-10%;"></div>
+        <div class="orb" style="background:var(--orb-blue); width:400px; height:400px; top:-10%; left:-10%;"></div>
+        <div class="orb" style="background:var(--orb-red); width:350px; height:350px; bottom:-10%; right:-10%;"></div>
     </div>
 
     <div class="container">
-        <!-- New Back to Home Button -->
-        <a href="index.html" style="display: inline-block; padding: 10px 20px; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; color: #888; text-decoration: none; font-size: 0.9rem; transition: 0.3s; margin-bottom: 20px;" 
-           onmouseover="this.style.borderColor='#4285F4'; this.style.color='#fff';" 
-           onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.2)'; this.style.color='#888';">← Back to Home</a>
+        <div style="position: relative; display: flex; justify-content: space-between; align-items: center;">
+                <a href="index.html" class="btn-back-home">Back to Home</a>
+            <button class="theme-toggle-btn" onclick="togglePageTheme()" title="Switch Layout Environment">
+                <i class="fas fa-moon"></i><i class="fas fa-sun"></i>
+            </button>
+        </div>
         
         <div class="main-grid" style="margin-top: 10px;">
-            <!-- Left Side: Content -->
             <div>
                 <div class="card">
                     <h1>Live Demo & Hands-On</h1>
-                    <p style="color: #bbb;">Expert-led technical session for top-tier candidates.</p>
+                    <p style="color: var(--card-sub-text);">Expert-led technical session for top-tier candidates.</p>
                     <div class="meta-grid">
-                        <div class="meta-item">📅 <b>Date:</b> TDB</div>
-                        <div class="meta-item">📍 <b>Location:</b> TDB</div>
+                        <div class="meta-item">📅 <b>Date:</b> TBD</div>
+                        <div class="meta-item">📍 <b>Location:</b> TBD</div>
                         <div class="meta-item">👥 <b>Capacity:</b> 35 Seats</div>
                         <div class="meta-item">⚠️ <b>Rules:</b> Formal Attire</div>
                     </div>
                 </div>
 
-                <!-- Event Description (Moved Above Resources) -->
                 <div class="card">
                     <h3>Event Description</h3>
-                    <p style="color: #ccc; line-height: 1.8;">Updated Soon!!</p>
+                    <p style="color: var(--card-desc-text); line-height: 1.8;">Updated Soon!!</p>
                 </div>
 
-                <!-- Session resources...  -->
                 <div class="card">
                     <h3>Session Resources</h3>
-                    <div style="width:100%; height:400px; border-radius:15px; overflow:hidden;">
+                    <div style="width:100%; height:400px; border-radius:15px; overflow:hidden; border: 1px solid var(--border-color);">
                         <iframe src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsPQGrB4e9c9VSc7IrC2gxwbwYPe7kTkiHuubJqkLBJQ&s" style="width:100%; height:100%; border:none;"></iframe>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Side: Quick Actions -->
             <div style="position: sticky; top: 40px; height: fit-content;">
                 <div class="card">
-                    <h3 style="margin-top:0;">Quick Actions</h3>
+                    <h3 style="margin-top:0; margin-bottom: 20px;">Quick Actions</h3>
                     <a href="#" class="sidebar-btn btn-join">JOIN SESSION</a>
                     <a href="prize-counter.html" class="sidebar-btn btn-prize">VIEW PRIZES</a>
                     <a href="https://producttrialfeedback.geministudentambassador.com/" class="sidebar-btn btn-task">SUBMIT TASK</a>
@@ -102,10 +242,14 @@
         </div>
     </div>
 
-    
     <footer>
         <p>© 2026 Adhyatmantan Farm. All Rights Reserved.</p>
     </footer>
-    
+
+    <script>
+        function togglePageTheme() {
+            document.body.classList.toggle('light-grid-theme');
+        }
+    </script>
 </body>
 </html>
