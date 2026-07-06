@@ -7,7 +7,7 @@
     <!-- Google Fonts & FontAwesome Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Montserrat:ital,wght@0,600;0,700;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Montserrat:ital,wght@0,600;0,700;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- JSZip Engine for client-side compression -->
@@ -15,38 +15,142 @@
 
     <style>
         :root {
-            --bg-primary: #f8fafc;
-            --bg-secondary: #ffffff;
-            --surface: #ffffff;
+            /* Authentic Identity Google Palette & Theme Variables From Contact */
+            --google-blue: #134391;
+            --google-red: #EA4335;
+            --google-yellow: #FBBC05;
+            --google-green: #34A853;
             
-            /* Authentic Identity Google Palette */
-            --google-blue: #1a73e8;
-            --google-red: #ea4335;
-            --google-yellow: #fbbc05;
-            --google-green: #34a853;
+            --dark-bg: #030712;
+            --card-bg: rgba(17, 24, 39, 0.45);
+            --text-light: #f9fafb;
+            --text-muted: #9ca3af;
             
-            --text-main: #1f1f1f;
-            --text-muted: #5f6368;
-            --border: #dadce0;
+            --body-bg: var(--dark-bg);
+            --content-text: var(--text-light);
+            --border-color: rgba(255, 255, 255, 0.06);
+            --card-shadow: rgba(0, 0, 0, 0.6);
+            --blur-effect: blur(16px);
+            --glow-color: rgba(66, 133, 244, 0.25);
+            
+            --orb-blue: rgba(66, 133, 244, 0.3);
+            --orb-red: rgba(234, 67, 53, 0.25);
+            --orb-blur: 130px;
+            --container-glow: none;
+            
+            /* Original File Variable Maps adapted for Seamless Dark/Light Transition */
+            --bg-primary: var(--body-bg);
+            --bg-secondary: var(--card-bg);
+            --surface: var(--card-bg);
+            --text-main: var(--content-text);
+            --border: var(--border-color);
+            --input-bg: rgba(255, 255, 255, 0.03);
+            --input-text: #ffffff;
+            
             --radius-lg: 16px;
             --radius-md: 8px;
-            --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* --- Ultra-Premium Light Mode Layout Alignment From contact.html --- */
+        body.light-grid-theme {
+            --body-bg: #e2e8f0;
+            --content-text: #0f172a;
+            --bg-secondary: rgba(255, 255, 255, 0.85);
+            --surface: rgba(255, 255, 255, 0.88);
+            --text-main: #0f172a; 
+            --text-muted: #334155;
+            --border: rgba(66, 133, 244, 0.35);
+            --border-color: rgba(66, 133, 244, 0.4);
+            --card-shadow: rgba(15, 23, 42, 0.1);
+            --glow-color: rgba(66, 133, 244, 0.35);
+            --input-bg: rgba(0, 0, 0, 0.04);
+            --input-text: #0f172a;
+            
+            --orb-blue: rgba(66, 133, 244, 0.35);
+            --orb-red: rgba(234, 67, 53, 0.28);
+            --orb-blur: 100px;
+            
+            --container-glow: 0 15px 35px rgba(66, 133, 244, 0.22), 0 0 25px rgba(66, 133, 244, 0.15);
+            
+            background: linear-gradient(135deg, #cbd5e1, #bfdbfe, #fecaca, #fef08a, #bbf7d0);
+            background-size: 400% 400%;
+            animation: gradientWave 15s ease infinite;
+        }
+
+        body.light-grid-theme::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -3;
+            background-image: 
+                linear-gradient(rgba(66, 133, 244, 0.06) 1.5px, transparent 1.5px),
+                linear-gradient(90deg, rgba(66, 133, 244, 0.06) 1.5px, transparent 1.5px);
+            background-size: 30px 30px;
+            pointer-events: none;
+        }
+
+        @keyframes gradientWave {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg-primary);
             color: var(--text-main);
-            margin: 0;
-            padding: 0;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
         }
+
+        /* --- Dynamic Background Lights (Active in Dark Mode) --- */
+        .google-orb {
+            position: absolute; border-radius: 50%; z-index: -2; filter: blur(var(--orb-blur)); pointer-events: none;
+            transition: var(--transition-smooth);
+        }
+        .orb-1 { background-color: var(--orb-blue); width: 600px; height: 600px; top: -10%; left: -10%; }
+        .orb-2 { background-color: var(--orb-red); width: 500px; height: 500px; bottom: -10%; right: -10%; }
+
+        /* --- Floating Adaptive Theme Switcher Toggle --- */
+        .theme-toggle-btn {
+            background-color: var(--bg-secondary); 
+            backdrop-filter: var(--blur-effect); 
+            -webkit-backdrop-filter: var(--blur-effect); 
+            border: 2px solid var(--google-blue); 
+            padding: 10px; 
+            border-radius: 50%; 
+            cursor: pointer; 
+            box-shadow: 0 10px 25px var(--card-shadow); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            width: 44px; 
+            height: 44px; 
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .theme-toggle-btn:hover { transform: scale(1.1) rotate(12deg); }
+        .theme-toggle-btn .fa-sun { color: var(--google-yellow); display: none; font-size: 1.1rem; }
+        .theme-toggle-btn .fa-moon { color: var(--google-blue); display: block; font-size: 1.1rem; }
+        body.light-grid-theme .theme-toggle-btn .fa-sun { display: block; }
+        body.light-grid-theme .theme-toggle-btn .fa-moon { display: none; }
+        body.light-grid-theme .theme-toggle-btn { border-color: #1e40af; }
 
         /* --- GOOGLE DESIGN SYSTEM NAVBAR --- */
         .navbar {
             background: var(--bg-secondary);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
             border-bottom: 1px solid var(--border);
             padding: 14px 40px;
             display: flex;
@@ -55,29 +159,60 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            transition: var(--transition-smooth);
         }
         .navbar-brand {
-            font-weight: 600;
-            font-size: 22px;
-            color: #3c4043;
+            font-weight: 700; 
+            font-size: 24px;
+            color: var(--text-main);
             display: flex;
             align-items: center;
             gap: 12px;
             user-select: none;
+            letter-spacing: -0.3px;
         }
-        .navbar-brand span.dots-container {
+
+        /* Interactive Google Dots Setup */
+        .navbar-brand span.dots-container, .footer-copyright span.dots-container {
             display: flex;
-            gap: 3px;
+            gap: 4px;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            padding: 5px;
         }
         .dot {
             width: 6px;
             height: 6px;
             border-radius: 50%;
+            transition: transform 0.2s;
+        }
+        .navbar-brand span.dots-container:hover .dot, .footer-copyright span.dots-container:hover .dot {
+            transform: scale(1.3);
         }
         .dot-b { background: var(--google-blue); }
         .dot-r { background: var(--google-red); }
         .dot-y { background: var(--google-yellow); }
         .dot-g { background: var(--google-green); }
+
+        /* Sparkle Particle Element Style Matrix */
+        .sparkle-particle {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            animation: flySparkle 0.8s cubic-bezier(0.1, 0.8, 0.25, 1) forwards;
+        }
+        @keyframes flySparkle {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--mx), var(--my)) scale(0.2);
+                opacity: 0;
+            }
+        }
 
         /* --- WAVE LETTER ANIMATION --- */
         .wave-text {
@@ -92,25 +227,35 @@
         }
 
         @keyframes bounceUpDown {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-6px);
-            }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
         }
 
-        .badge-deadline {
-            background: #fce8e6;
-            color: var(--google-red);
-            padding: 6px 16px;
-            border-radius: 100px;
-            font-size: 13px;
-            font-weight: 600;
-            border: 1px solid #fad2cf;
+        .nav-controls-right {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 20px;
+        }
+
+        /* Premium Logout Button */
+        .btn-logout {
+            background: linear-gradient(135deg, var(--google-red), #b91c1c);
+            color: #ffffff;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(234, 67, 53, 0.3);
+            transition: var(--transition-smooth);
+        }
+        .btn-logout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(234, 67, 53, 0.45);
         }
 
         /* --- WORKBENCH LAYOUT GRID --- */
@@ -124,22 +269,35 @@
             grid-template-columns: 440px 1fr;
             gap: 40px;
             flex: 1;
+            z-index: 1;
         }
 
         /* --- CONTROL CARD PANEL --- */
         .control-card {
             background: var(--surface);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
             border-radius: var(--radius-lg);
             border: 1px solid var(--border);
             padding: 30px;
             height: fit-content;
-            box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+            box-shadow: var(--container-glow), 0 20px 40px var(--card-shadow);
+            transition: var(--transition-smooth);
+            animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .control-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--container-glow), 0 25px 50px rgba(0,0,0,0.3);
+        }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .section-title {
             font-size: 18px;
             font-weight: 600;
             margin-bottom: 25px;
-            color: #3c4043;
+            color: var(--text-main);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -155,28 +313,32 @@
             margin-bottom: 8px;
             font-weight: 600;
             font-size: 13px;
-            color: #3c4043;
+            color: var(--text-main);
         }
         
         /* Dropzones */
         .file-dropzone {
-            border: 1px dashed var(--border);
+            border: 2px dashed var(--border);
             padding: 22px;
             border-radius: var(--radius-md);
             text-align: center;
-            background: #f8fafc;
+            background: var(--input-bg);
             cursor: pointer;
             transition: var(--transition-smooth);
             position: relative;
         }
         .file-dropzone:hover {
             border-color: var(--google-blue);
-            background: #f4f8fe;
+            background: rgba(66, 133, 244, 0.08);
+            transform: scale(1.01);
         }
         .file-dropzone i {
             font-size: 24px;
-            color: var(--text-muted);
             margin-bottom: 8px;
+            transition: transform 0.3s;
+        }
+        .file-dropzone:hover i {
+            transform: translateY(-3px);
         }
         .file-dropzone p {
             margin: 0;
@@ -198,22 +360,22 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-md);
             font-size: 14px;
-            background: #ffffff;
-            color: var(--text-main);
+            background: var(--input-bg);
+            color: var(--input-text);
             transition: var(--transition-smooth);
             font-family: inherit;
         }
         input[type="text"]:focus, textarea:focus {
             outline: none;
             border-color: var(--google-blue);
-            box-shadow: 0 0 0 2px rgba(26,115,232,0.2);
+            box-shadow: 0 0 12px rgba(66, 133, 244, 0.3);
+            background: var(--surface);
         }
         textarea {
             height: 110px;
             resize: vertical;
             font-family: monospace;
             font-size: 13px;
-            background: #f8fafc;
         }
 
         /* Action Buttons Suite */
@@ -227,9 +389,9 @@
             width: 100%;
             padding: 13px;
             border: none;
-            border-radius: var(--radius-md);
+            border-radius: 50px;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -238,26 +400,28 @@
             transition: var(--transition-smooth);
         }
         .btn-ui-primary {
-            background: var(--google-blue);
+            background: linear-gradient(135deg, var(--google-blue), #1557b0);
             color: #ffffff;
+            box-shadow: 0 4px 14px rgba(26,115,232,0.3);
         }
         .btn-ui-primary:hover {
-            background: #1557b0;
-            box-shadow: 0 1px 3px 0 rgba(66,133,244,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(66, 133, 244, 0.45);
         }
         .btn-ui-success {
-            background: var(--google-green);
+            background: linear-gradient(135deg, var(--google-green), #137333);
             color: #ffffff;
+            box-shadow: 0 4px 14px rgba(52,168,83,0.3);
         }
         .btn-ui-success:hover {
-            background: #137333;
-            box-shadow: 0 1px 3px 0 rgba(52,168,83,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(52, 168, 83, 0.45);
         }
         
         /* Progress Bar */
         .status-container {
             margin-top: 20px;
-            background: #f8fafc;
+            background: var(--input-bg);
             border-radius: var(--radius-md);
             padding: 16px;
             border: 1px solid var(--border);
@@ -269,12 +433,16 @@
             font-size: 13px;
             font-weight: 600;
             margin-bottom: 8px;
+            color: var(--text-main);
         }
         .progress-bar-bg {
-            background: #e8eaed;
+            background: rgba(255, 255, 255, 0.1);
             height: 6px;
             border-radius: 100px;
             overflow: hidden;
+        }
+        body.light-grid-theme .progress-bar-bg {
+            background: #cbd5e1;
         }
         .progress-bar-fill {
             background: linear-gradient(90deg, var(--google-blue), var(--google-green));
@@ -288,6 +456,8 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
+            z-index: 1;
+            animation: slideInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .preview-header h3 {
             margin: 0;
@@ -298,31 +468,231 @@
             letter-spacing: 1px;
         }
         .canvas-frame {
-            background: #ffffff;
+            background: var(--surface);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
             padding: 24px;
-            box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+            box-shadow: var(--container-glow), 0 20px 40px var(--card-shadow);
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: var(--transition-smooth);
+        }
+        .canvas-frame:hover {
+            box-shadow: var(--container-glow), 0 25px 50px rgba(0,0,0,0.3);
         }
         canvas {
             width: 100%;
             height: auto;
             border-radius: var(--radius-md);
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            background: #f8fafc;
+            background: rgba(0,0,0,0.05);
+        }
+
+        /* --- HIGHLY ANIMATED GLASSMORPHISM LOGIN OVERLAY --- */
+        .login-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(3, 7, 18, 0.7);
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.4s ease;
+        }
+        body.light-grid-theme .login-overlay {
+            background-color: rgba(226, 232, 240, 0.65);
+        }
+
+        /* Spinning Animated Infinite Glow Border Frame Box Container */
+        .login-glow-wrap {
+            position: relative;
+            width: 100%;
+            max-width: 430px;
+            padding: 4px;
+            border-radius: 32px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+            animation: loginWindowScale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        body.light-grid-theme .login-glow-wrap {
+            box-shadow: 0 30px 60px rgba(15, 23, 42, 0.15);
+        }
+        
+        @keyframes loginWindowScale {
+            from { transform: scale(0.85); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* Unstoppable Spreading Spinning Continuous Motion Background Engine Layer */
+        .login-glow-wrap::before {
+            content: '';
+            position: absolute;
+            width: 180%;
+            height: 180%;
+            background: conic-gradient(
+                var(--google-blue), 
+                var(--google-red), 
+                var(--google-yellow), 
+                var(--google-green), 
+                var(--google-blue)
+            );
+            animation: continuousSpin 4s linear infinite;
+            z-index: 0;
+        }
+        @keyframes continuousSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .login-card {
+            background: rgba(10, 15, 30, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 50px 40px;
+            border-radius: 28px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(20px);
+        }
+        body.light-grid-theme .login-card {
+            background: rgba(255, 255, 255, 0.94);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .login-card h2 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+        }
+        .login-card p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-bottom: 30px;
+        }
+        .login-field {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .login-field label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: block;
+            color: var(--text-main);
+        }
+        
+        /* Premium Password Box Container Wrapper */
+        .password-input-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .password-input-container input {
+            width: 100%;
+            padding: 14px 45px 14px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--input-bg);
+            color: var(--input-text);
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+        .password-input-container input:focus {
+            border-color: var(--google-blue);
+            box-shadow: 0 0 12px rgba(66, 133, 244, 0.25);
+        }
+        
+        /* Show/Hide Password Eye Button Style */
+        .toggle-password-eye {
+            position: absolute;
+            right: 16px;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            user-select: none;
+            z-index: 2;
+        }
+        .toggle-password-eye:hover {
+            color: var(--google-blue);
+        }
+
+        .login-field input[type="text"] {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--input-bg);
+            color: var(--input-text);
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+        .login-field input[type="text"]:focus {
+            border-color: var(--google-blue);
+            box-shadow: 0 0 12px rgba(66, 133, 244, 0.25);
+        }
+        .login-btn {
+            background: linear-gradient(135deg, var(--google-blue), #1557b0);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 15px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(26,115,232,0.4);
+            margin-top: 12px;
+            transition: var(--transition-smooth);
+        }
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 22px rgba(26,115,232,0.5);
+        }
+        
+        /* Shake Animation for Input Error Alert Box */
+        .login-error {
+            color: var(--google-red);
+            font-size: 0.88rem;
+            margin-top: 14px;
+            display: none;
+            font-weight: 700;
+        }
+        .shake-element {
+            animation: errorShake 0.4s ease;
+        }
+        @keyframes errorShake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
         }
 
         /* --- GOOGLE-INSPIRED PROFESSIONAL FOOTER --- */
         footer {
-            background: #ffffff;
+            background: var(--bg-secondary);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
             color: var(--text-muted);
             padding: 40px;
             border-top: 1px solid var(--border);
             font-size: 14px;
             margin-top: auto;
+            z-index: 1;
+            transition: var(--transition-smooth);
         }
         .footer-main {
             max-width: 1200px;
@@ -335,7 +705,7 @@
             margin-bottom: 20px;
         }
         .footer-logo {
-            color: #3c4043;
+            color: var(--text-main);
             font-weight: 600;
             font-size: 18px;
             display: flex;
@@ -347,7 +717,7 @@
             gap: 16px;
         }
         .footer-socials a {
-            background: #f8fafc;
+            background: var(--input-bg);
             color: var(--text-muted);
             width: 40px;
             height: 40px;
@@ -360,10 +730,11 @@
             transition: var(--transition-smooth);
         }
         .footer-socials a:hover {
-            background: #f1f3f4;
-            color: var(--google-blue);
-            border-color: #aecbfa;
-            transform: translateY(-2px);
+            background: var(--google-blue);
+            color: #ffffff;
+            border-color: var(--google-blue);
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
         }
         .footer-socials a svg {
             width: 18px;
@@ -383,15 +754,46 @@
             .workbench { grid-template-columns: 1fr; padding: 20px; }
             .navbar { padding: 14px 24px; }
             .footer-main, .footer-meta { flex-direction: column; gap: 24px; text-align: center; }
+            .nav-controls-right { gap: 10px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Dynamic Mesh Background Orbs (Active in Dark mode) -->
+    <div class="google-orb orb-1"></div>
+    <div class="google-orb orb-2"></div>
+
+    <!-- Secure Gateway Login Screen Window Overlay -->
+    <div class="login-overlay" id="loginOverlay">
+        <!-- Outer Wrapper to hold Continuous Spinning Conic Border Animation Grid -->
+        <div class="login-glow-wrap" id="loginGlowWrap">
+            <div class="login-card">
+                <h2>System Gateway 🔒</h2>
+                <p>The SoulSoil Sync Administrator Security Verification</p>
+                <div class="login-field">
+                    <label>Admin ID Name</label>
+                    <input type="text" id="loginUser" placeholder="Enter username" autocomplete="off">
+                </div>
+                <div class="login-field">
+                    <label>Security Password</label>
+                    <!-- Premium Input Structure mapped with toggle vision eye -->
+                    <div class="password-input-container">
+                        <input type="password" id="loginPass" placeholder="Enter password">
+                        <i class="fas fa-eye toggle-password-eye" id="togglePasswordEye" onclick="togglePasswordVisibility()"></i>
+                    </div>
+                </div>
+                <button class="login-btn" onclick="validateSystemAccess()">Authenticate Access</button>
+                <div class="login-error" id="loginError">Invalid credentials. Access Denied.</div>
+            </div>
+        </div>
+    </div>
+
     <!-- Application Top Navigation Bar -->
     <nav class="navbar">
         <div class="navbar-brand">
-            <span class="dots-container">
+            <!-- Sparkle Animation Enabled Group Cluster -->
+            <span class="dots-container" onclick="triggerSparkleBurst(event)">
                 <span class="dot dot-b"></span>
                 <span class="dot dot-r"></span>
                 <span class="dot dot-y"></span>
@@ -399,8 +801,15 @@
             </span>
             <span class="wave-text" id="animatedBrand"></span>
         </div>
-        <div class="badge-deadline">
-            Deveoped by Amol Patil
+        <div class="nav-controls-right">
+            <!-- Floating Theme Toggle Button from contact.html -->
+            <button class="theme-toggle-btn" onclick="togglePageTheme()" title="Switch Layout Environment">
+                <i class="fas fa-moon"></i><i class="fas fa-sun"></i>
+            </button>
+            <!-- Integrated Secure System Logout Option -->
+            <button class="btn-logout" onclick="executeSystemLogout()">
+                Logout <i class="fas fa-sign-out-alt"></i>
+            </button>
         </div>
     </nav>
 
@@ -496,16 +905,146 @@
                 </a>
             </div>
         </div>
-       <div class="footer-meta" style="text-align: center; padding: 20px 0;">
-    <div class="footer-copyright">
-        <a href="index.html" style="color: #8a99ad; text-decoration: none; font-family: sans-serif; font-size: 14px; cursor: pointer;">
-            &copy; 2026 Adhyatmantan Farm. All Rights Reserved.
-        </a>
-    </div>
-</div>
+        <div class="footer-meta" style="text-align: center; padding: 20px 0;">
+            <!-- Premium Enhanced Copyright Module Integrated With Sparkle Feature Functionality -->
+            <div class="footer-copyright" style="display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Plus Jakarta Sans', sans-serif;">
+                <span class="dots-container" onclick="triggerSparkleBurst(event)">
+                    <span class="dot dot-b" style="width: 5px; height: 5px; border-radius: 50; background: var(--google-blue);"></span>
+                    <span class="dot dot-r" style="width: 5px; height: 5px; border-radius: 50; background: var(--google-red);"></span>
+                    <span class="dot dot-y" style="width: 5px; height: 5px; border-radius: 50; background: var(--google-yellow);"></span>
+                    <span class="dot dot-g" style="width: 5px; height: 5px; border-radius: 50; background: var(--google-green);"></span>
+                </span>
+                <a href="index.html" style="color: #8a99ad; text-decoration: none; font-size: 14px; cursor: pointer; font-weight: 500;">
+                    &copy; 2026 The SoulSoil Sync | Adhyatmantan Farm. All Rights Reserved.
+                </a>
+            </div>
+        </div>
     </footer>
 
     <script>
+        // --- SECURE DYNAMIC SPARKLE BURST ANIMATION CONTROLLER ENGINE ---
+        function triggerSparkleBurst(event) {
+            const colors = ['#4285F4', '#EA4335', '#FBBC05', '#34A853']; // Standard Identity Google Array Palette
+            const particleCount = 24; // Quantum of circles dispatched per burst action trigger
+            const rect = event.currentTarget.getBoundingClientRect();
+            
+            // Derive strategic focal point center metric layout context
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('sparkle-particle');
+                
+                // Assign safe small randomized size bounds to generated color circle particles
+                const size = Math.floor(Math.random() * 5) + 5; 
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Select linear random indexing mapper sequence allocation from Google spectrum matrix
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Absolute global screen node coordinates structure layout mapping placement orientation
+                particle.style.left = `${centerX}px`;
+                particle.style.top = `${centerY}px`;
+
+                // Calculate random trajectory velocity metrics vectors
+                const angle = Math.random() * Math.PI * 2;
+                const destinationRadius = Math.random() * 70 + 40; 
+                const mx = Math.cos(angle) * destinationRadius;
+                const my = Math.sin(angle) * destinationRadius;
+
+                // Bind custom inline dynamic translation metrics variables to target elements
+                particle.style.setProperty('--mx', `${mx}px`);
+                particle.style.setProperty('--my', `${my}px`);
+
+                document.body.appendChild(particle);
+
+                // Safe garbage garbage collection memory sweep context release optimization cycle
+                particle.addEventListener('animationend', () => {
+                    particle.remove();
+                });
+            }
+        }
+
+        // --- SYSTEM GATEWAY CORE AUTHENTICATION ENGINE ---
+        // Fixed Unique Access Credentials Configured
+        const FIXED_USER = "amol.the_soulsoil_sync";
+        const FIXED_PASS = "I_Love_To_Code!10";
+
+        function checkSystemSession() {
+            if (sessionStorage.getItem("auth_token") === "active_session") {
+                document.getElementById("loginOverlay").style.display = "none";
+            } else {
+                document.getElementById("loginOverlay").style.display = "flex";
+            }
+        }
+
+        // Dedicated Feature Functionality to Toggle Password Visibility (Show/Hide)
+        function togglePasswordVisibility() {
+            const passInput = document.getElementById("loginPass");
+            const eyeIcon = document.getElementById("togglePasswordEye");
+            
+            if (passInput.type === "password") {
+                passInput.type = "text";
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
+            } else {
+                passInput.type = "password";
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
+            }
+        }
+
+        function validateSystemAccess() {
+            const userIn = document.getElementById("loginUser").value.trim();
+            const passIn = document.getElementById("loginPass").value;
+            const errorLabel = document.getElementById("loginError");
+            const loginGlowWrap = document.getElementById("loginGlowWrap");
+
+            if (userIn === FIXED_USER && passIn === FIXED_PASS) {
+                sessionStorage.setItem("auth_token", "active_session");
+                errorLabel.style.display = "none";
+                document.getElementById("loginOverlay").style.opacity = "0";
+                setTimeout(() => {
+                    document.getElementById("loginOverlay").style.display = "none";
+                    renderSinglePreview(); // Initialize default asset graphics view engine
+                }, 400);
+            } else {
+                // Interactive error shake response
+                errorLabel.style.display = "block";
+                loginGlowWrap.classList.remove("shake-element");
+                void loginGlowWrap.offsetWidth; // Trigger reflow to restart animation safely
+                loginGlowWrap.classList.add("shake-element");
+                document.getElementById("loginPass").value = "";
+                
+                // Reset password type back to hidden password format on wrong entry submit
+                document.getElementById("loginPass").type = "password";
+                document.getElementById("togglePasswordEye").classList.remove("fa-eye-slash");
+                document.getElementById("togglePasswordEye").classList.add("fa-eye");
+            }
+        }
+
+        function executeSystemLogout() {
+            sessionStorage.removeItem("auth_token");
+            document.getElementById("loginUser").value = "";
+            document.getElementById("loginPass").value = "";
+            document.getElementById("loginPass").type = "password";
+            document.getElementById("togglePasswordEye").classList.remove("fa-eye-slash");
+            document.getElementById("togglePasswordEye").classList.add("fa-eye");
+            document.getElementById("loginError").style.display = "none";
+            document.getElementById("loginOverlay").style.opacity = "1";
+            document.getElementById("loginOverlay").style.display = "flex";
+        }
+
+        // Run security verification audit immediately at parsing compilation phase
+        checkSystemSession();
+
+        // Theme Toggle Script Environment Matrix
+        function togglePageTheme() {
+            document.body.classList.toggle('light-grid-theme');
+        }
+
         const brandString = "The SoulSoil Sync   ";
         const brandContainer = document.getElementById("animatedBrand");
         
@@ -613,9 +1152,9 @@
             if (!isTemplateLoaded) {
                 canvas.width = 1000;
                 canvas.height = 707;
-                ctx.fillStyle = "#f8fafc";
+                ctx.fillStyle = "rgba(255, 255, 255, 0.03)";
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = "#5f6368";
+                ctx.fillStyle = "var(--text-muted)";
                 ctx.font = "15px 'Plus Jakarta Sans'";
                 ctx.textAlign = "center";
                 ctx.fillText("Ready. Please upload 'Certificate of Participation .jpg' context template...", canvas.width/2, canvas.height/2);
@@ -629,7 +1168,11 @@
         previewBtn.addEventListener('click', renderSinglePreview);
         dateInput.addEventListener('input', renderSinglePreview);
 
-        window.onload = () => { renderSinglePreview(); };
+        window.onload = () => { 
+            if (sessionStorage.getItem("auth_token") === "active_session") {
+                renderSinglePreview(); 
+            }
+        };
 
         // --- BULK EXTRACTION ZIP PACKAGING ENGINE ---
         bulkDownloadBtn.addEventListener('click', async () => {
