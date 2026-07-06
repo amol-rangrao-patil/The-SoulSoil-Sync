@@ -187,8 +187,8 @@
 
     <script>
     // तारखा सेटिंग
-    const startDateInput = "July 6, 2026 00:00:00"; 
-    const endDateInput = "July 10, 2026 23:59:59";
+    const startDateInput = "July 9, 2026 00:00:00"; 
+    const endDateInput = "July 12, 2026 23:59:59";
     const eventDateInput = "July 14, 2026 10:00:00"; // इव्हेंटची तारीख
 
     function updateCountdown() {
@@ -202,7 +202,7 @@
 
         if (now < regStart) {
             targetDate = regStart;
-            statusText.innerText = "Registration Starts July 6";
+            statusText.innerText = "Registration Starts July 9";
         } else if (now >= regStart && now <= regEnd) {
             targetDate = regEnd;
             statusText.innerText = "Registration Ends In";
