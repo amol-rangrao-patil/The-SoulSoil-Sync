@@ -23,6 +23,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="The SoulSoil Sync Presented by Adhyatmantan Farms">
 <style>
+
         :root {
             --google-blue: #4285F4;
             --google-red: #EA4335;
@@ -53,7 +54,7 @@
             --footer-text: #64748b;
         }
 
-        /* --- Ultra-Premium Light Mode with 80% Visibility Deep Corporate Color Wave --- */
+        /* --- Ultra-Premium Light Mode Layout --- */
         body.light-grid-theme {
             --body-bg: #e2e8f0;
             --content-text: #0f172a;
@@ -66,8 +67,6 @@
             --orb-blue: rgba(66, 133, 244, 0.35);
             --orb-red: rgba(234, 67, 53, 0.28);
             --orb-blur: 100px;
-            
-            /* High-Intensity Royal Blue Glow to lift containers */
             --container-glow: 0 15px 35px rgba(66, 133, 244, 0.22), 0 0 25px rgba(66, 133, 244, 0.15);
             
             --card-desc-text: #1e293b;
@@ -78,13 +77,11 @@
             --back-btn-bg: #f8fafc;
             --footer-text: #475569;
 
-            /* 80% Strong Industrial Darker Gradient Colors for Background Animation */
             background: linear-gradient(135deg, #cbd5e1, #bfdbfe, #fecaca, #fef08a, #bbf7d0);
             background-size: 400% 400%;
             animation: gradientWave 15s ease infinite;
         }
 
-        /* Technical Blueprint Notebook layout over the moving background */
         body.light-grid-theme::after {
             content: "";
             position: absolute;
@@ -120,12 +117,15 @@
             transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
         }
 
-        /* Background Orbs Animation */
         .bg-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
         .orb { position: absolute; border-radius: 50%; filter: blur(var(--orb-blur)); opacity: 0.3; transition: filter 0.5s; }
 
         .container { max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
-        .main-grid { display: grid; grid-template-columns: 1fr 320px; gap: 30px; }
+        
+        /* Layout Structure */
+        .main-grid { display: grid; grid-template-columns: 1fr 320px; gap: 30px; align-items: start; }
+        .left-column { order: 1; }
+        .right-column { order: 2; position: sticky; top: 40px; height: fit-content; }
 
         .card { 
             background: var(--card-bg); 
@@ -139,18 +139,16 @@
             transition: background-color 0.3s, box-shadow 0.3s, border-color 0.3s;
         }
         
-        /* Floating Adaptive Theme Switcher */
         .theme-toggle-btn {
             position: absolute; top: -10px; right: 0; background-color: var(--card-bg); backdrop-filter: var(--blur-effect); -webkit-backdrop-filter: var(--blur-effect); border: 2px solid var(--google-blue); padding: 14px; border-radius: 50%; cursor: pointer; box-shadow: 0 10px 30px var(--card-shadow); display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 10;
         }
-      .theme-toggle-btn:hover { transform: scale(1.1) rotate(12deg); }
+        .theme-toggle-btn:hover { transform: scale(1.1) rotate(12deg); }
         .theme-toggle-btn .fa-sun { color: var(--google-yellow); display: none; }
         .theme-toggle-btn .fa-moon { color: var(--google-blue); display: block; }
         body.light-grid-theme .theme-toggle-btn .fa-sun { display: block; }
         body.light-grid-theme .theme-toggle-btn .fa-moon { display: none; }
         body.light-grid-theme .theme-toggle-btn { border-color: #1e40af; }
 
-        /* Back Button Formatting - Match with image_746746.png and image_746769.png */
         .btn-back-home {
             display: inline-block; 
             padding: 12px 32px; 
@@ -165,7 +163,6 @@
             background: var(--back-btn-bg); 
             backdrop-filter: var(--blur-effect);
             -webkit-backdrop-filter: var(--blur-effect);
-            
         }
         .btn-back-home:hover { 
             border-color: var(--google-blue); 
@@ -173,7 +170,6 @@
             box-shadow: 0 4px 15px rgba(66, 133, 244, 0.15);
         }
 
-        /* Proper Button Formatting */
         .sidebar-btn { display: block; width: 100%; padding: 18px; margin-bottom: 15px; border-radius: 12px; text-align: center; font-weight: 800; text-decoration: none; color: #fff; transition: 0.3s; border: 1px solid var(--btn-border); }
         .btn-join { background: #4285F4; box-shadow: 0 4px 14px rgba(66, 133, 244, 0.3); }
         .btn-prize { background: #FBBC05; color: #000; box-shadow: 0 4px 14px rgba(251, 188, 5, 0.3); }
@@ -184,12 +180,19 @@
         .meta-item { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; font-size: 0.9rem; border: 1px solid var(--border-color); }
         body.light-grid-theme .meta-item { background: rgba(0, 0, 0, 0.03); }
         
+        /* 📱 MOBILE VIEW OPTIMIZATION */
         @media (max-width: 850px) { 
-            .main-grid { grid-template-columns: 1fr; } 
+            .main-grid { display: flex; flex-direction: column; gap: 10px; } 
+            .left-column { order: 2; width: 100%; }
+            .right-column { order: 1; width: 100%; position: relative; top: 0; margin-bottom: 10px; }
             .theme-toggle-btn { top: -15px; right: 10px; }
         }
 
         footer { padding: 30px; text-align: center; color: var(--footer-text); font-size: 0.9rem; transition: color 0.3s; }
+        
+        /* Step Nodes Style */
+        .step-node { display: flex; gap: 15px; margin-bottom: 16px; align-items: flex-start; }
+        .step-num { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8rem; font-weight: 700; color: #4285F4; flex-shrink: 0; margin-top: 3px; }
     </style>
 </head>
 <body>
@@ -207,94 +210,134 @@
         </div>
         
         <div class="main-grid" style="margin-top: 10px;">
-            <div>
+            
+            <!-- LEFT COLUMN (MAIN CARDS) -->
+            <div class="left-column">
                 <div class="card">
                     <h1>Live Demo & Hands-On</h1>
                     <p style="color: var(--card-sub-text);">Expert-led technical session for top-tier candidates.</p>
                     <div class="meta-grid">
                         <div class="meta-item">📅 <b>Date:</b> TBD</div>
                         <div class="meta-item">📍 <b>Location:</b> TBD</div>
-                        <div class="meta-item">👥 <b>Capacity:</b> 35 Seats</div>
+                        <div class="meta-item">👥 <b>Capacity:</b> 60 Seats</div>
                         <div class="meta-item">⚠️ <b>Rules:</b> Formal Attire</div>
                     </div>
                 </div>
 
+                <!-- ULTRA-CLEAN EVENT DESCRIPTION CARD -->
+                <div class="card" style="background: #111111; color: #e3e3e3; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; padding: 32px; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6); position: relative; overflow: hidden;">
+                    
+                    <!-- Decorative Theme Elements -->
+                    <div style="position: absolute; top: -10px; right: -10px; font-size: 5rem; opacity: 0.03; pointer-events: none; filter: blur(1px);">✨</div>
+                    <div style="position: absolute; bottom: -15px; left: -10px; font-size: 3.5rem; opacity: 0.02; pointer-events: none;">✨</div>
+
+                    <!-- Header -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid var(--border-color); padding-bottom: 16px;">
+                        <h3 style="margin: 0; font-size: 1.35rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px;">
+                            <span style="color: #4285F4;">✨</span> Event Description
+                        </h3>
+                        <span style="background: rgba(66, 133, 244, 0.12); color: #8ab4f8; border: 1px solid rgba(66, 133, 244, 0.25); padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px;">PILLAR #1</span>
+                    </div>
+                    
+                    <div>
+                        <!-- Event Meta Row -->
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 20px; font-size: 0.95rem;">
+                            <p><strong style="color: var(--google-blue);">🎉 Event:</strong> Freshers Party Planning Night</p>
+                            <p><strong style="color: var(--google-red);">🎯 Theme:</strong> Plan the Freshers Party. For Real.</p>
+                        </div>
+                        
+                        <p style="margin-bottom: 24px; opacity: 0.85; text-align: justify; font-size: 0.9rem; line-height: 1.7; color: var(--card-desc-text);">
+                            Throw an elite AI experience challenge on campus! Participants will interact with <strong>Gemini Chat</strong> to engineer creative party schedules, custom welcome logs, and interactive campus games. Everything will then be brought to life using the AI tool <strong>Nano Banana</strong> to render high-fidelity, stunning event posters.
+                        </p>
+                        
+                        <!-- Fast Badges -->
+                        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px;">
+                            <span style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; color: var(--card-desc-text);">⏱️ 45-60 Mins</span>
+                            <span style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; color: var(--card-desc-text);">📂 Google Doc Setup</span>
+                            <span style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; color: var(--card-desc-text);">👥 10-50 Attendees</span>
+                        </div>
+
+                        <!-- ROADMAP EXECUTION FLOW -->
+                        <h4 style="margin: 0 0 16px 0; font-size: 1.05rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 6px;">
+                            <i class="fas fa-list-ol" style="color: #FBBC05; font-size: 0.95rem;"></i> Step-by-Step Task Roadmap
+                        </h4>
+                        
+                        <div style="margin-bottom: 24px;">
+                            <div class="step-node">
+                                <div class="step-num">1</div>
+                                <div style="font-size: 0.9rem; color: var(--card-desc-text);"><strong style="color: #fff;">Pre-Survey Form:</strong> Fill out the initial registration survey and make sure to include your ambassador's tracking information.</div>
+                            </div>
+                            <div class="step-node">
+                                <div class="step-num">2</div>
+                                <div style="font-size: 0.9rem; color: var(--card-desc-text);"><strong style="color: #fff;">Gemini Blueprint Build:</strong> Launch Gemini Chat, pitch your core party concept, and let it map out detailed game workflows, icebreakers, and timelines.</div>
+                            </div>
+                            <div class="step-node">
+                                <div class="step-num">3</div>
+                                <div style="font-size: 0.9rem; color: var(--card-desc-text);"><strong style="color: #fff;">Stress-Test Verification:</strong> Ask Gemini to find the weakest parts of your event structure. Fix the gaps and finalize your complete text content inside a clean Google Doc.</div>
+                            </div>
+                            <div class="step-node">
+                                <div class="step-num">4</div>
+                                <div style="font-size: 0.9rem; color: var(--card-desc-text);"><strong style="color: #fff;">Nano Banana Canvas:</strong> Input your descriptive party environment brief into Nano Banana to generate a highly vivid, detailed invitation poster.</div>
+                            </div>
+                            <div class="step-node">
+                                <div class="step-num">5</div>
+                                <div style="font-size: 0.9rem; color: var(--card-desc-text);"><strong style="color: #fff;">60-Second Room Pitch:</strong> Present your complete event poster and plan to the room for an immediate "Would Attend" or "Would Skip" live vote.</div>
+                            </div>
+                            <div class="step-node">
+                                <div class="step-num">6</div>
+                                <div style="font-size: 0.9rem; color: var(--card-desc-text);"><strong style="color: #fff;">Final Submission:</strong> Upload your structured Google Document link, your Nano Banana canvas graphic, and the shareable Gemini chat log history.</div>
+                            </div>
+                        </div>
+
+                        <!-- Short Direct Prize Check Callout -->
+                        <p style="margin: 0 0 28px 0; font-size: 0.9rem; opacity: 0.95; display: flex; align-items: center; gap: 8px; color: #81c995; font-weight: 500;">
+                            <i class="fas fa-gift" style="color: #34A853;"></i> Please review the "View Prizes" action module to inspect the full event rewards structure!
+                        </p>
+
+                        <!-- SUTSUTIT AMBASSADOR ROW DETAILS LAYOUT -->
+                        <div style="background: rgba(255, 255, 255, 0.01); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; font-size: 0.88rem;">
+                            <div>
+                                <span style="opacity: 0.5; font-size: 0.8rem; display: block; margin-bottom: 4px;">Ambassador Name:</span>
+                                <span style="font-weight: 700; color: var(--content-text); text-transform: uppercase;">Amol Rangrao Patil</span>
+                            </div>
+                            <div>
+                                <span style="opacity: 0.5; font-size: 0.8rem; display: block; margin-bottom: 4px;">Email ID:</span>
+                                <span style="font-weight: 700; color: var(--content-text);">amolemail10@gmail.com</span>
+                            </div>
+                            <div style="grid-column: 1 / -1; margin-top: 4px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 12px;">
+                                <span style="opacity: 0.5; font-size: 0.8rem; display: block; margin-bottom: 4px;">Ambassador GID:</span>
+                                <span style="font-weight: 700; color: #8ab4f8; font-size: 0.95rem;">909</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END HIGH-FIDELITY EVENT DESCRIPTION CARD -->
+
+                <!-- 📺 FIXED SESSION RESOURCES (GOOGLE PPT CONTAINER) -->
                 <div class="card">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-        <h3 style="margin: 0; font-size: 1.4rem; font-weight: 700;">✨ Event Description</h3>
-        <span style="background: rgba(255, 255, 255, 0.1); padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Pillar #1</span>
-    </div>
-    
-    <div style="color: var(--card-desc-text); line-height: 1.8; font-size: 0.95rem;">
-        <!-- Event Main Header -->
-        <p style="margin-top: 0; margin-bottom: 8px;"><strong>🎉 Event:</strong> Freshers Party Planning Night</p>
-        <p style="margin-top: 0; margin-bottom: 15px;"><strong>🎯 Theme:</strong> Plan the Freshers Party. For Real.</p>
-        
-        <!-- Short & Punchy Description -->
-        <p style="margin-bottom: 18px; opacity: 0.9;">
-            नवीन Freshers च्या स्वागतासाठी <strong>Gemini Chat</strong> आणि AI-powered इमेज जनरेशन टूल <strong>Nano Banana</strong> चा वापर करून एक धमाकेदार पार्टी प्लॅन करायची आहे![cite: 1, 2] हा ४५ ते ६० मिनिटांचा एक क्रिएटिव्ह आणि मजेदार चॅलेंज इव्हेंट आहे.
-        </p>
-        
-        <!-- Quick Timeline Badges -->
-        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;">
-            <span style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 5px 12px; border-radius: 8px; font-size: 0.85rem;">⏱️ 45-60 Mins[cite: 2]</span>
-            <span style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 5px 12px; border-radius: 8px; font-size: 0.85rem;">📝 1 Google Doc[cite: 1, 2]</span>
-            <span style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 5px 12px; border-radius: 8px; font-size: 0.85rem;">🖼️ 1 AI Poster[cite: 1, 2]</span>
-        </div>
-
-        <!-- Rewards Section -->
-        <div style="background: rgba(255, 215, 0, 0.05); border-left: 4px solid #ffd700; padding: 12px 15px; border-radius: 4px; margin-bottom: 22px;">
-            <p style="margin: 0; font-weight: bold; color: #ffd700;">🎁 Rewards & Prizes:</p>
-            <p style="margin: 4px 0 0 0; font-size: 0.9rem; opacity: 0.95;">सर्व सहभागींना <strong>Google Participation Certificate</strong> मिळेल आणि एका नॅशनल विनरला जिंकायची संधी आहे एक ब्रँड न्यू <strong>Google Pixel Phone!</strong>[cite: 1, 2]</p>
-        </div>
-
-        <!-- Ambassador Details Header -->
-        <h4 style="margin: 20px 0 10px 0; font-size: 1.05rem; font-weight: 600; display: flex; align-items: center; gap: 6px;">
-            👤 Google Student Ambassador Details
-        </h4>
-        
-        <!-- Styled Info Grid -->
-        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 12px 15px;">
-            <div style="display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                <span style="opacity: 0.7;">Name:</span>
-                <span style="font-weight: 600;">[Insert Name Here]</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                <span style="opacity: 0.7;">Email ID:</span>
-                <span style="font-weight: 600; letter-spacing: 0.2px;">[Insert Email Here]</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; padding: 6px 0;">
-                <span style="opacity: 0.7;">Ambassador GID:</span>
-                <span style="font-weight: 600; color: #4285F4;">[Insert GID Here]</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-               <div class="card">
-    <h3>Session Resources</h3>
-    
-    <!-- फुल स्क्रीन कंटेनर -->
-    <div id="presentation-container" style="width:100%; height:450px; border-radius:15px; overflow:hidden; border: 1px solid var(--border-color); position: relative; background: #000;">
-        
-        <!-- गुगल पीपीटी आयफ्रेम -->
-        <iframe src="https://docs.google.com/presentation/d/1WHYXUy9QlfwLG83LFLSuhMaCwTCF09yz9qYKJSxGT64/embed?start=false&loop=false&delayms=3000" style="width:100%; height:100%; border:none;" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-        
-        <!-- कस्टमाइज्ड फुल स्क्रीन आयकॉन/बटण (पीपीटीच्या वर उजव्या कोपऱ्यात दिसेल) -->
-        <button onclick="toggleFullScreen()" style="position: absolute; bottom: 15px; right: 15px; background: rgba(66, 133, 244, 0.9); color: #fff; border: none; padding: 10px 16px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.9rem; z-index: 100; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: 0.2s;">
-            <i class="fas fa-expand"></i> FULL SCREEN
-        </button>
-    </div>
-</div>
-
-            <div style="position: sticky; top: 40px; height: fit-content;">
-                <div class="card">
-                    <h3 style="margin-top:0; margin-bottom: 20px;">Quick Actions</h3>
-                    <a href="#" class="sidebar-btn btn-join">JOIN SESSION</a>
-                    <a href="prize-counter.html" class="sidebar-btn btn-prize">VIEW PRIZES</a>
-                    <a href="https://producttrialfeedback.geministudentambassador.com/" class="sidebar-btn btn-task">SUBMIT TASK</a>
+                    <h3>Session Resources</h3>
+                    <div id="presentation-container" style="width:100%; height:450px; border-radius:15px; overflow:hidden; border: 1px solid var(--border-color); position: relative; background: #000;">
+                        <!-- Embed link with valid sandbox parameters -->
+                        <iframe src="https://docs.google.com/presentation/d/1WHYXUy9QlfwLG83LFLSuhMaCwTCF09yz9qYKJSxGT64/embed?start=false&loop=false&delayms=3000" style="width:100%; height:100%; border:none;" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+                        <button onclick="toggleFullScreen()" style="position: absolute; bottom: 15px; right: 15px; background: rgba(66, 133, 244, 0.9); color: #fff; border: none; padding: 10px 16px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.9rem; z-index: 100; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: 0.2s;">
+                            <i class="fas fa-expand"></i> FULL SCREEN
+                        </button>
+                    </div>
                 </div>
             </div>
+
+            <!-- RIGHT COLUMN (QUICK ACTIONS) -->
+            <div class="right-column">
+                <div class="card" style="margin-bottom: 0;">
+                    <h3 style="margin-top:0; margin-bottom: 20px;">Quick Actions</h3>
+                    <a href="#" class="sidebar-btn btn-join">JOIN SESSION</a>
+                    <a href="#" class="sidebar-btn btn-task"> Pre Survey Form</a>
+                    <a href="prize-counter.html" class="sidebar-btn btn-prize">VIEW PRIZES</a>
+                    <a href="https://producttrialfeedback.geministudentambassador.com/" class="sidebar-btn btn-task">SUBMIT TASK</a>
+                    
+                </div>
+            </div>
+            
         </div>
     </div>
 
@@ -307,34 +350,20 @@
             document.body.classList.toggle('light-grid-theme');
         }
 
-
         function toggleFullScreen() {
-        var elem = document.getElementById("presentation-container");
-        
-        if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
-            // फुल स्क्रीन मोड चालू करणे
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.msRequestFullscreen) {
-                elem.msRequestFullscreen();
-            } else if (elem.mozRequestFullScreen) {
-                elem.mozRequestFullScreen();
-            } else if (elem.webkitRequestFullscreen) {
-                elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-            }
-        } else {
-            // फुल स्क्रीन मोड बंद करणे
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.msExitFullscreen) {
-                document.msExitFullscreen();
-            } else if (document.mozCancelFullScreen) {
-                document.mozCancelFullScreen();
-            } else if (document.webkitExitFullscreen) {
-                document.webkitExitFullscreen();
+            var elem = document.getElementById("presentation-container");
+            if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+                if (elem.requestFullscreen) { elem.requestFullscreen(); } 
+                else if (elem.msRequestFullscreen) { elem.msRequestFullscreen(); } 
+                else if (elem.mozRequestFullScreen) { elem.mozRequestFullScreen(); } 
+                else if (elem.webkitRequestFullscreen) { elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT); }
+            } else {
+                if (document.exitFullscreen) { document.exitFullscreen(); } 
+                else if (document.msExitFullscreen) { document.msExitFullscreen(); } 
+                else if (document.mozCancelFullScreen) { document.mozCancelFullScreen(); } 
+                else if (document.webkitExitFullscreen) { document.webkitExitFullscreen(); }
             }
         }
-    }
     </script>
 </body>
 </html>
