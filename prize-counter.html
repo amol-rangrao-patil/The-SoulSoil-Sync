@@ -164,11 +164,8 @@
             border: 1px solid var(--border-color); border-radius: 20px; padding: 30px; margin-bottom: 25px; transition: 0.3s; 
         }
         
-        .content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
-        .event-card.active .content { max-height: 5000px; margin-top: 25px; border-top: 1px solid var(--border-color); padding-top: 25px; }
-
-        .toggle-arrow { cursor: pointer; font-size: 1.5rem; color: var(--content-text); transition: 0.3s; padding: 10px; }
-        .event-card.active .toggle-arrow { transform: rotate(180deg); }
+        /* कॉन्टेंट थेट दाखवण्यासाठी मूळ max-height आणि बदल सुलभ केले */
+        .content-always-visible { max-height: none; margin-top: 25px; border-top: 1px solid var(--border-color); padding-top: 25px; }
 
         .participant-box { 
             background: var(--card-bg) !important; 
@@ -190,7 +187,7 @@
         footer { padding: 30px; text-align: center; color: var(--text-muted); font-size: 0.9rem; font-weight: 500; }
 
         /* ==========================================================================
-           प्रीमियम ग्लास लॉगिन विंडो रचना - डेस्कटॉप आणि मोबाईल दोन्हीवर Absolute
+            प्रीमियम ग्लास लॉगिन विंडो रचना - डेस्कटॉप आणि मोबाईल दोन्हीवर Absolute
            ========================================================================== */
         .premium-top-navbar {
             display: flex;
@@ -285,7 +282,7 @@
             font-size: 14px;
         }
 
-        /* Eye Icon (Show/Hide) साठी स्पेशल राइट साइड पोझिशनिंग */
+        /* Eye Icon (Show/Hide) साठी स्पेशल राइट side पोझिशनिंग */
         .login-input-wrapper-inner i.toggle-password-eye {
             position: absolute;
             right: 18px;
@@ -421,8 +418,8 @@
                 
                 <!-- प्रीमियम रिफ्रॅक्टेड ग्लास पॅनेल विंडो -->
                 <div class="nav-login-dropdown-box" id="navLoginBox">
-                    <h4 id="loginTitleNav" style="color: var(--google-blue); margin:0 0 4px 0; font-size: 16px; font-weight: 800; white-space: nowrap;"><i class="fas fa-user-shield"></i> System Verification</h4>
-                    <p id="loginSubtitleNav" style="font-size: 12px; opacity: 0.7; margin:0; line-height: 1.4; font-weight: 500;">Enter workspace credentials to access certificates</p>
+                    <h4 id="loginTitleNav" style="color: var(--google-blue); margin:0 0 4px 0; font-size: 16px; font-weight: 800; white-space: nowrap;"><i class="fas fa-user-shield"></i> Personal Verification</h4>
+                    <p id="loginSubtitleNav" style="font-size: 12px; opacity: 0.7; margin:0; line-height: 1.4; font-weight: 500;">Enter your unique credentials to access your certificate</p>
                     
                     <div class="login-input-group-vertical" id="loginInputsNavPanel">
                         <div class="login-input-wrapper-inner">
@@ -431,7 +428,7 @@
                         </div>
                         <div class="login-input-wrapper-inner">
                             <i class="fas fa-key input-icon-left"></i>
-                            <input type="password" id="passInputNav" class="login-input-nav" placeholder="Password">
+                            <input type="password" id="passInputNav" class="login-input-nav" placeholder="Password ">
                             <!-- पासवर्ड दाखवण्यासाठी आणि लपवण्यासाठी Eye आयकॉन जोडला -->
                             <i class="fas fa-eye toggle-password-eye" id="togglePasswordVisibility" onclick="togglePasswordDisplay()"></i>
                         </div>
@@ -439,7 +436,7 @@
                     </div>
                     
                     <div id="logoutSectionNavPanel" style="display: none; text-align: center;">
-                        <p style="color: var(--google-green); font-weight: 700; font-size: 13px; margin: 10px 0 0 0; line-height: 1.4;"><i class="fas fa-check-circle"></i> Workspace Unlocked Successfully!</p>
+                        <p id="welcomeMessageNav" style="color: var(--google-green); font-weight: 700; font-size: 13px; margin: 10px 0 0 0; line-height: 1.4;"><i class="fas fa-check-circle"></i> Welcome!</p>
                         <button type="button" class="logout-btn-nav" onclick="handleNavbarAuthLogout()">Secure Logout</button>
                     </div>
                 </div>
@@ -467,39 +464,25 @@
             <p style="margin:8px 0 0 0; color: var(--content-text); opacity:0.8; font-weight: 500;">Rewards for top performers!</p>
         </div>
 
+        <!-- --- कार्ड थेट ओपन स्ट्रक्चर मध्ये (कोणताही क्लिक न करता वरच दिसेल) --- -->
         <div class="event-card" id="card1" style="border-left: 6px solid var(--blue);">
             <div style="display:flex; justify-content:space-between; align-items:center;">
-                <div><h2 style="margin:0; color: var(--content-text); font-weight: 700;">Product Trial</h2><p style="color:var(--blue); margin:5px 0; font-weight: 600; font-size: 14px;">Capacity: 35 Seats</p></div>
-                <i class="fas fa-chevron-down toggle-arrow" onclick="toggleCard('card1')"></i>
+                <div><h2 style="margin:0; color: var(--content-text); font-weight: 700;">Product Trial</h2><p style="color:var(--blue); margin:5px 0; font-weight: 600; font-size: 14px;">Capacity: 55 Seats</p></div>
             </div>
-            <div class="content">
+            <div class="content-always-visible">
                 <div class="prize-label">Prizes</div>
                 <div class="category-box" style="color: var(--content-text);"><strong>🏆 Winner:</strong> Premium Swag + Nominate for the Google Pixel 10A </div>
                 <div class="category-box" style="color: var(--content-text);"><strong>🥈 Runner Up:</strong> Premium Swag</div>
+                <div class="category-box" style="color: var(--content-text);"><strong>🏅 Best Performance:</strong> Special Goodies</div>
                 <div class="category-box" style="color: var(--content-text);"><strong>🏅 Participants:</strong> E-Certificate </div>
                 
                 <div class="protected-wrapper">
-                    <p style="color:var(--blue); font-weight:700; text-align:center; margin-top:20px;">Claim your participation certificate here</p>
+                    <p style="color:var(--blue); font-weight:700; text-align:center; margin-top:20px; margin-bottom:15px;">Claim your participation certificate here</p>
                     <div id="list1"></div>
                 </div>
             </div>
         </div>
 
-        <div class="event-card" id="card2" style="border-left: 6px solid var(--green);">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <div><h2 style="margin:0; color: var(--content-text); font-weight: 700;">Campus Interview</h2><p style="color:var(--green); margin:5px 0; font-weight: 600; font-size: 14px;">Capacity: 12 Seats</p></div>
-                <i class="fas fa-chevron-down toggle-arrow" onclick="toggleCard('card2')"></i>
-            </div>
-            <div class="content">
-                <div class="prize-label">Prizes</div>
-                <div class="category-box" style="color: var(--content-text);"><strong>🏆Prizes for Our Top 5 Performers:</strong> Special Goodies</div>
-                
-                <div class="protected-wrapper">
-                    <p style="color:var(--blue); font-weight:700; text-align:center; margin-top:20px;">Claim your participation certificate here</p>
-                    <div id="list2"></div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -508,84 +491,89 @@
     </footer>
 
 <script>
-    function toggleCard(id) { 
-        document.getElementById(id).classList.toggle('active'); 
-    }
-
     function togglePageTheme() {
         document.body.classList.toggle('light-grid-theme');
     }
 
     const colors = ['var(--blue)', 'var(--red)', 'var(--yellow)', 'var(--green)'];
 
+    // --- ५५ विद्यार्थ्यांचा युनिक डेटाबेस (Testing साठी काही डमी डेटा समाविष्ट केला आहे) ---
+    // तुम्ही फक्त 'link' च्या जागी तुमच्या गुगल ड्राईव्हची लिंक बदलू शकता.
     const list1Data = [
-        { name: "Participant 1", link: "https://example.com/cert1.pdf" },
-        { name: "Participant 2", link: "https://example.com/cert2.pdf" },
-        { name: "Participant 3", link: "https://example.com/cert1.pdf" },
-        { name: "Participant 4", link: "https://example.com/cert2.pdf" },
-        { name: "Participant 5", link: "https://example.com/cert1.pdf" },
-        { name: "Participant 6", link: "https://example.com/cert2.pdf" },
-        { name: "Participant 7", link: "https://example.com/cert1.pdf" },
-        { name: "Participant 8", link: "https://example.com/cert2.pdf" },
-        { name: "Participant 9", link: "https://example.com/cert1.pdf" },
-        { name: "Participant 10", link: "https://example.com/cert2.pdf" },
-        { name: "Participant 11", link: "https://example.com/cert1.pdf" },
-        { name: "Participant 12", link: "https://example.com/cert2.pdf" },
-        { name: "Participant 13", link: "https://example.com/cert1.pdf" },
-        { name: "Participant 14", link: "https://example.com/cert2.pdf" },
-        { name: "Participant 15", link: "https://example.com/cert1.pdf" },
-        { name: "Participant 16", link: "https://example.com/cert2.pdf" },
-        { name: "Participant 17", link: "https://example.com/cert1.pdf" },
-        { name: "Participant 18", link: "https://example.com/cert2.pdf" },
-        { name: "Participant 19", link: "https://example.com/cert1.pdf" },
-        { name: "Participant 20", link: "https://example.com/cert2.pdf" },
-        { name: "Participant 21", link: "https://example.com/cert1.pdf" },
-        { name: "Participant 22", link: "https://example.com/cert2.pdf" },
-        { name: "Participant 23", link: "https://example.com/cert1.pdf" },
-        { name: "Participant 24", link: "https://example.com/cert2.pdf" },
-        { name: "Participant 25", link: "https://example.com/cert1.pdf" },
-        { name: "Participant 26", link: "https://example.com/cert2.pdf" },
-        { name: "Participant 27", link: "https://example.com/cert1.pdf" },
-        { name: "Participant 28", link: "https://example.com/cert2.pdf" },
-        { name: "Participant 29", link: "https://example.com/cert1.pdf" },
-        { name: "Participant 30", link: "https://example.com/cert2.pdf" },
-        { name: "Participant 31", link: "https://example.com/cert1.pdf" },
-        { name: "Participant 32", link: "https://example.com/cert2.pdf" },
-        { name: "Participant 33", link: "https://example.com/cert1.pdf" },
-        { name: "Participant 34", link: "https://example.com/cert2.pdf" },
-        { name: "Participant 35", link: "https://example.com/cert1.pdf" }
+        { name: "Amol Patil", username: "Amol Patil", password: "Amol@Code", link: "https://example.com/drive-link-1" },
+        { name: "Neha Sharma", username: "Neha Sharma", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-2" },
+        { name: "Rahul Joshi", username: "Rahul Joshi", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-3" },
+        { name: "Pooja Deshmukh", username: "Pooja Deshmukh", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-4" },
+        { name: "Participant 5", username: "Participant 5", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-5" },
+        { name: "Participant 6", username: "Participant 6", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-6" },
+        { name: "Participant 7", username: "Participant 7", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-7" },
+        { name: "Participant 8", username: "Participant 8", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-8" },
+        { name: "Participant 9", username: "Participant 9", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-9" },
+        { name: "Participant 10", username: "Participant 10", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-10" },
+        { name: "Participant 11", username: "Participant 11", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-11" },
+        { name: "Participant 12", username: "Participant 12", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-12" },
+        { name: "Participant 13", username: "Participant 13", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-13" },
+        { name: "Participant 14", username: "Participant 14", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-14" },
+        { name: "Participant 15", username: "Participant 15", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-15" },
+        { name: "Participant 16", username: "Participant 16", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-16" },
+        { name: "Participant 17", username: "Participant 17", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-17" },
+        { name: "Participant 18", username: "Participant 18", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-18" },
+        { name: "Participant 19", username: "Participant 19", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-19" },
+        { name: "Participant 20", username: "Participant 20", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-20" },
+        { name: "Participant 21", username: "Participant 21", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-21" },
+        { name: "Participant 22", username: "Participant 22", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-22" },
+        { name: "Participant 23", username: "Participant 23", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-23" },
+        { name: "Participant 24", username: "Participant 24", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-24" },
+        { name: "Participant 25", username: "Participant 25", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-25" },
+        { name: "Participant 26", username: "Participant 26", password: "I_Love_To_Code_10", link:"https://example.com/drive-link-26" },
+        { name: "Participant 27", username: "Participant 27", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-27" },
+        { name: "Participant 28", username: "Participant 28", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-28" },
+        { name: "Participant 29", username: "Participant 29", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-29" },
+        { name: "Participant 30", username: "Participant 30", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-30" },
+        { name: "Participant 31", username: "Participant 31", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-31" },
+        { name: "Participant 32", username: "Participant 32", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-32" },
+        { name: "Participant 33", username: "Participant 33", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-33" },
+        { name: "Participant 34", username: "Participant 34", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-34" },
+        { name: "Participant 35", username: "Participant 35", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-35" },
+        { name: "Participant 36", username: "Participant 36", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-36" },
+        { name: "Participant 37", username: "Participant 37", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-37" },
+        { name: "Participant 38", username: "Participant 38", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-38" },
+        { name: "Participant 39", username: "Participant 39", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-39" },
+        { name: "Participant 40", username: "Participant 40", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-40" },
+        { name: "Participant 41", username: "Participant 41", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-41" },
+        { name: "Participant 42", username: "Participant 42", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-42" },
+        { name: "Participant 43", username: "Participant 43", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-43" },
+        { name: "Participant 44", username: "Participant 44", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-44" },
+        { name: "Participant 45", username: "Participant 45", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-45" },
+        { name: "Participant 46", username: "Participant 46", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-46" },
+        { name: "Participant 47", username: "Participant 47", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-47" },
+        { name: "Participant 48", username: "Participant 48", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-48" },
+        { name: "Participant 49", username: "Participant 49", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-49" },
+        { name: "Participant 50", username: "Participant 50", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-50" },
+        { name: "Participant 51", username: "Participant 51", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-51" },
+        { name: "Participant 52", username: "Participant 52", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-52" },
+        { name: "Participant 53", username: "Participant 53", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-53" },
+        { name: "Participant 54", username: "Participant 54", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-54" },
+        { name: "Participant 55", username: "Participant 55", password: "I_Love_To_Code_10", link: "https://example.com/drive-link-55" }
     ];
 
-    const list2Data = [
-        { name: "Participant 1", link: "https://example.com/event2-cert1.pdf" },
-        { name: "Participant 2", link: "https://example.com/event2-cert2.pdf" },
-        { name: "Participant 3", link: "https://example.com/event2-cert1.pdf" },
-        { name: "Participant 4", link: "https://example.com/event2-cert2.pdf" },
-        { name: "Participant 5", link: "https://example.com/event2-cert1.pdf" },
-        { name: "Participant 6", link: "https://example.com/event2-cert2.pdf" },
-        { name: "Participant 7", link: "https://example.com/event2-cert1.pdf" },
-        { name: "Participant 8", link: "https://example.com/event2-cert2.pdf" },
-        { name: "Participant 9", link: "https://example.com/event2-cert1.pdf" },
-        { name: "Participant 10", link: "https://example.com/event2-cert2.pdf" },
-        { name: "Participant 11", link: "https://example.com/event2-cert1.pdf" },
-        { name: "Participant 12", link: "https://example.com/event2-cert2.pdf" }
-        
-    ];
-
-    function populate(id, dataList) {
-        let container = document.getElementById(id);
+    // केवळ लॉगिन केलेल्या विद्यार्थ्याचे सर्टिफिकेट लोड करणे
+    function populateSingleUserCertificate(loggedInUsername) {
+        let container = document.getElementById('list1');
         container.innerHTML = ''; 
 
-        dataList.forEach((item, index) => {
-            let color = colors[index % colors.length];
-            container.innerHTML += `
+        const userRecord = list1Data.find(item => item.username === loggedInUsername);
+
+        if (userRecord) {
+            let color = colors[0]; // डिझाईन मॅचिंग निळा रंग
+            container.innerHTML = `
                 <div class="participant-box">
-                    <strong style="color: var(--content-text); font-weight: 600; font-size: 15px;">${item.name}</strong>
-                    <a href="${item.link}" class="btn-cert" style="background:${color}" target="_blank">
+                    <strong style="color: var(--content-text); font-weight: 600; font-size: 15px;">${userRecord.name}</strong>
+                    <a href="${userRecord.link}" class="btn-cert" style="background:${color}" target="_blank">
                         Download Cert
                     </a>
                 </div>`;
-        });
+        }
     }
 
     function toggleNavDropdownForm() {
@@ -599,7 +587,6 @@
         }
     }
 
-    // पासवर्ड दाखवणे आणि लपवणे (Show/Hide Toggle) फंक्शन
     function togglePasswordDisplay() {
         const passwordInput = document.getElementById('passInputNav');
         const eyeIcon = document.getElementById('togglePasswordVisibility');
@@ -616,7 +603,8 @@
     }
 
     function checkNavbarLoginState() {
-        const isLoggedIn = localStorage.getItem('soulsoil_logged_in') === 'true';
+        const loggedInUser = localStorage.getItem('soulsoil_user');
+        const isLoggedIn = localStorage.getItem('soulsoil_logged_in') === 'true' && loggedInUser;
         const wrappers = document.querySelectorAll('.protected-wrapper');
         const navBtn = document.getElementById('navLockBtn');
         const navBox = document.getElementById('navLoginBox');
@@ -625,15 +613,19 @@
             wrappers.forEach(w => w.classList.remove('blur-protected'));
             document.getElementById('loginInputsNavPanel').style.display = 'none';
             document.getElementById('logoutSectionNavPanel').style.display = 'block';
+            document.getElementById('welcomeMessageNav').innerHTML = `<i class="fas fa-check-circle"></i> Welcome, ${loggedInUser}!`;
             
             navBtn.innerHTML = '<i class="fas fa-unlock"></i> Verified';
             navBtn.style.borderColor = 'var(--google-green)';
             navBox.style.borderColor = 'var(--google-green)';
             navBox.style.display = 'block'; 
+            
+            populateSingleUserCertificate(loggedInUser);
         } else {
             wrappers.forEach(w => w.classList.add('blur-protected'));
             document.getElementById('loginInputsNavPanel').style.display = 'flex';
             document.getElementById('logoutSectionNavPanel').style.display = 'none';
+            document.getElementById('list1').innerHTML = ''; 
             
             navBtn.innerHTML = '<i class="fas fa-lock"></i> Verify Workspace';
             navBtn.style.borderColor = 'var(--google-blue)';
@@ -643,14 +635,16 @@
     }
 
     function handleNavbarAuthLogin() {
-        const user = document.getElementById('userInputNav').value;
-        const pass = document.getElementById('passInputNav').value;
+        const userEntered = document.getElementById('userInputNav').value.trim();
+        const passEntered = document.getElementById('passInputNav').value.trim();
 
-        if (user.trim() === "user" && pass.trim() === "Sync*Code*Y26") {
+        const matchedUser = list1Data.find(item => item.username === userEntered && item.password === passEntered);
+
+        if (matchedUser) {
             localStorage.setItem('soulsoil_logged_in', 'true');
+            localStorage.setItem('soulsoil_user', matchedUser.username);
             checkNavbarLoginState();
             
-            // २ सेकंदांनंतर ऑटो-हाईड सिस्टीम
             setTimeout(() => {
                 const dropdownBox = document.getElementById('navLoginBox');
                 dropdownBox.style.animation = "navGlassCloseAnim 0.3s ease forwards";
@@ -658,17 +652,16 @@
             }, 2000);
 
         } else {
-            alert("Access denied. The username or password you entered is incorrect. Please contact the organizers to obtain valid credentials.");
+            alert("Access denied. The username or password you entered is incorrect. Please check your unique credentials or contact the organizers.");
         }
     }
 
     function handleNavbarAuthLogout() {
         localStorage.removeItem('soulsoil_logged_in');
+        localStorage.removeItem('soulsoil_user');
         checkNavbarLoginState();
     }
 
-    populate('list1', list1Data);
-    populate('list2', list2Data);
     checkNavbarLoginState();
 </script>
 </body>

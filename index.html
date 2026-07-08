@@ -197,14 +197,166 @@
 
         .card-action-cluster { display: flex; flex-direction: column; gap: 12px; width: 100%; align-items: center; }
         .btn-card-register {
-            background: linear-gradient(135deg, var(--google-blue), #1e40af); color: #ffffff; padding: 14px 35px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.95rem; transition: 0.3s; border: none; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 6px 20px rgba(66, 133, 244, 0.3); width: 85%; justify-content: center;
+            background: linear-gradient(135deg, var(--google-blue), #1e40af); color: #ffffff; padding: 14px 35px; border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 0.95rem; transition: 0.3s; border: 1px solid rgba(66, 133, 244, 0.55); display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 10px 24px rgba(66, 133, 244, 0.24); width: 85%; justify-content: center;
         }
-        .btn-card-register:hover { transform: translateY(-2px); box-shadow: 0 12px 25px rgba(66, 133, 244, 0.5); }
+        .btn-card-register:hover { filter: brightness(1.04) saturate(1.05); box-shadow: 0 14px 32px rgba(66, 133, 244, 0.34); }
 
         .btn-card-explore {
-            background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); color: var(--content-text); padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; width: 85%; justify-content: center;
+            background: rgba(255, 255, 255, 0.05); color: var(--content-text); border: 1px solid var(--border-color); padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 0.9rem; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; width: 85%; justify-content: center; box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
         }
-        .btn-card-explore:hover { background: rgba(66, 133, 244, 0.1); border-color: var(--google-blue); }
+        .btn-card-explore:hover { background: rgba(66, 133, 244, 0.08); border-color: rgba(66, 133, 244, 0.35); box-shadow: 0 14px 32px rgba(66, 133, 244, 0.20); }
+
+        @keyframes buttonFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-2px) scale(1.01); }
+        }
+        .theme-toggle-btn,
+        .btn-card-register,
+        .btn-card-explore,
+        .btn-product-showcase-whatsapp,
+        .btn-product-showcase-details,
+        .social-node-item {
+            animation: buttonFloat 6s ease-in-out infinite;
+            will-change: transform, box-shadow, filter;
+        }
+        .theme-toggle-btn:hover,
+        .btn-card-register:hover,
+        .btn-card-explore:hover,
+        .btn-product-showcase-whatsapp:hover,
+        .btn-product-showcase-details:hover,
+        .social-node-item:hover {
+            transform: translateY(-4px) scale(1.02);
+        }
+        .theme-toggle-btn:active,
+        .btn-card-register:active,
+        .btn-card-explore:active,
+        .btn-product-showcase-whatsapp:active,
+        .btn-product-showcase-details:active,
+        .social-node-item:active {
+            transform: translateY(-1px) scale(0.99);
+        }
+
+        @keyframes showcaseFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        @keyframes softRiseIn {
+            from { opacity: 0; transform: translateY(22px); filter: blur(2px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        .product-showcase-card {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(145deg, rgba(66, 133, 244, 0.05), rgba(17, 24, 39, 0.16));
+            border: 1px solid var(--border-color);
+            border-radius: 32px;
+            padding: 40px;
+            box-shadow: var(--container-glow), 0 24px 45px var(--card-shadow);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            animation: softRiseIn 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both, showcaseFloat 8s ease-in-out infinite 0.6s;
+        }
+        body.light-grid-theme .product-showcase-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(219, 234, 254, 0.12));
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(66, 133, 244, 0.18), 0 0 36px rgba(66, 133, 244, 0.12);
+            border-color: rgba(66, 133, 244, 0.25);
+        }
+        .product-showcase-card::before {
+            content: '';
+            position: absolute;
+            inset: auto -120px -120px auto;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(66, 133, 244, 0.22), transparent 68%);
+            pointer-events: none;
+        }
+        .product-showcase-card__inner { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 24px; }
+        .product-showcase-header { display: flex; gap: 18px; align-items: flex-start; }
+        .product-showcase-icon {
+            width: 82px; height: 82px; border-radius: 24px; display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.22), rgba(52, 168, 83, 0.12));
+            border: 1px solid rgba(66, 133, 244, 0.26); box-shadow: 0 14px 28px rgba(66, 133, 244, 0.16);
+            flex-shrink: 0;
+        }
+        .product-showcase-icon i { font-size: 2rem; color: var(--google-blue); }
+        .product-showcase-kicker {
+            text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.75rem; color: var(--badge-text);
+            font-weight: 800; margin-bottom: 8px;
+        }
+        .product-showcase-card h3 { font-size: clamp(2rem, 3vw, 2.6rem); line-height: 1.08; margin-bottom: 12px; }
+        .product-showcase-lead { color: var(--text-muted); line-height: 1.7; max-width: 760px; }
+        .product-showcase-meta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+        .product-showcase-meta-card {
+            padding: 16px 18px; border-radius: 20px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        body.light-grid-theme .product-showcase-meta-card { background: rgba(255, 255, 255, 0.10); }
+        .product-showcase-meta-card span {
+            display: block; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); margin-bottom: 8px;
+        }
+        .product-showcase-meta-card strong { font-size: 0.98rem; color: var(--content-text); }
+        .product-showcase-theme {
+            padding: 18px 20px; border-radius: 22px; background: linear-gradient(135deg, rgba(66, 133, 244, 0.03), rgba(52, 168, 83, 0.02));
+            border: 1px solid rgba(66, 133, 244, 0.08);
+        }
+        .product-showcase-theme span {
+            display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 999px; margin-bottom: 12px;
+            background: rgba(66, 133, 244, 0.05); color: var(--google-blue); font-size: 0.74rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+        }
+        .product-showcase-theme p { margin: 0; color: var(--content-text); font-weight: 700; line-height: 1.6; }
+        .product-showcase-actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+        .btn-product-showcase-whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E) !important; border: 1px solid #25D366 !important; color: #ffffff !important;
+            box-shadow: 0 10px 24px rgba(37, 211, 102, 0.26) !important; font-weight: 800 !important;
+        }
+        .btn-product-showcase-whatsapp:hover { filter: brightness(1.04) saturate(1.05); box-shadow: 0 14px 32px rgba(37, 211, 102, 0.38) !important; }
+        .btn-product-showcase-details {
+            background: linear-gradient(135deg, var(--google-yellow), var(--google-red)); color: #0f172a; border: 1px solid rgba(251, 188, 5, 0.6);
+            font-weight: 800; box-shadow: 0 10px 24px rgba(234, 67, 53, 0.22);
+        }
+        .btn-product-showcase-details:hover { filter: brightness(1.04) saturate(1.05); box-shadow: 0 14px 32px rgba(234, 67, 53, 0.32); }
+        @media (max-width: 768px) {
+            .product-showcase-card { padding: 28px; animation: none; }
+            .product-showcase-header { flex-direction: column; }
+            .product-showcase-meta { grid-template-columns: 1fr; }
+            .product-showcase-actions { grid-template-columns: 1fr; }
+        }
+
+        @keyframes softRiseIn {
+            from { opacity: 0; transform: translateY(22px); filter: blur(2px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .org-row-container > div,
+        .sponsors-box-container > .main-premium-sponsor,
+        .subsidiary-sponsors-grid > .interactive-flip-card {
+            animation: softRiseIn 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+        }
+
+        .org-row-container > div:nth-child(1) { animation-delay: 0.05s; }
+        .org-row-container > div:nth-child(2) { animation-delay: 0.14s; }
+        .org-row-container > div:nth-child(3) { animation-delay: 0.23s; }
+        .sponsors-box-container > .main-premium-sponsor { animation-delay: 0.08s; }
+        .subsidiary-sponsors-grid > .interactive-flip-card:nth-child(1) { animation-delay: 0.10s; }
+        .subsidiary-sponsors-grid > .interactive-flip-card:nth-child(2) { animation-delay: 0.18s; }
+        .subsidiary-sponsors-grid > .interactive-flip-card:nth-child(3) { animation-delay: 0.26s; }
+
+        .main-premium-sponsor {
+            transform-origin: center;
+            animation: softRiseIn 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) both, gentleFloat 8s ease-in-out infinite 0.9s;
+        }
+
+        .subsidiary-sponsors-grid .interactive-flip-card:hover,
+        .org-matrix-grid .interactive-flip-card:hover,
+        .main-premium-sponsor:hover {
+            transform: translateY(-8px);
+        }
 
         /* --- Organizers Rows Structure --- */
         .org-row-container { display: flex; flex-direction: column; gap: 80px; width: 100%; }
@@ -295,80 +447,56 @@
 
     <!-- Theme & Session Matrix -->
     <section id="themes">
-        <h2 class="section-title"><span>Theme & Sessions</span></h2>
+        <h2 class="section-title"><span>Product Trial</span></h2>
         <div class="card-container-grid">
-            
-            <!-- Event 1 Card -->
-            <div class="interactive-flip-card" onclick="handleCardFlip(this, event)">
-                <div class="card-inner-wrapper">
-                    <div class="card-side-front">
-                        <div>
-                            <i class="fas fa-cubes" style="font-size:4rem; color:var(--google-blue); margin-bottom:22px;"></i>
-                            <h3>Event 1: Product Trial</h3>
-                            <p style="color:var(--text-muted); margin-top:16px; font-size:1.05rem; line-height: 1.6;">we will Updated Soon</p>
-                        </div>
-                        <span class="hint-text"><i class="fas fa-sync-alt"></i> Click card to reveal theme & register</span>
-                    </div>
-                    <div class="card-side-back">
-                        <div>
-                            <h3>Theme Specifications</h3>
-                            <p style="color:var(--google-blue); font-weight:700; font-size:1.45rem; margin:15px 0;">Theme Updated Soon</p>
-                            <p style="font-size:0.95rem; color:var(--text-muted); margin-bottom:25px;">Technical configuration guides and environments will be displayed shortly.</p>
-                        </div>
-                        <div class="card-action-cluster">
-                            <a href="registration-product-trial.html" class="btn-card-register" onclick="event.stopPropagation();" target="_blank">
-                                Register for Event 1 <i class="fas fa-external-link-alt"></i>
-                            </a>
-                            <a href="https://chat.whatsapp.com/JNWUSG1AjIhAqQOwaSqP6f?s=cl&p=a&mlu=0" 
-                             class="btn-card-register" 
-                                onclick="event.stopPropagation();" 
-                                target="_blank" 
-                                style="background-color: #25D366 !important; background-image: none !important; border: 1px solid #25D366 !important; display: inline-flex !important; align-items: center !important; gap: 8px !important; color: white !important;">
-                                Join WhatsApp Group <i class="fab fa-whatsapp"></i>
-                            </a>
-                            <a href="product-trial-details.html" class="btn-card-explore" onclick="event.stopPropagation();">
-                                Explore Full Details Here <i class="fas fa-chevron-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Event 2 Card -->
-            <div class="interactive-flip-card" onclick="handleCardFlip(this, event)">
-                <div class="card-inner-wrapper">
-                    <div class="card-side-front">
-                        <div>
-                            <i class="fas fa-user-astronaut" style="font-size:4rem; color:var(--google-green); margin-bottom:22px;"></i>
-                            <h3>Event 2: Campus Interview</h3>
-                            <p style="color:var(--text-muted); margin-top:16px; font-size:1.05rem; line-height: 1.6;">we will Updated Soon</p>
+            <article class="product-showcase-card">
+                <div class="product-showcase-card__inner">
+                    <div class="product-showcase-header">
+                        <div class="product-showcase-icon">
+                            <i class="fas fa-cubes"></i>
                         </div>
-                        <span class="hint-text"><i class="fas fa-sync-alt"></i> Click card to reveal theme & register</span>
+                        <div>
+                            <div class="product-showcase-kicker">Event 1</div>
+                            <h3>Product Trial</h3>
+                            <p class="product-showcase-lead">They are new here. Be the reason they love the campus 
+</p>
+                        </div>
                     </div>
-                    <div class="card-side-back">
-                        <div>
-                            <h3>Theme Specifications</h3>
-                            <p style="color:var(--google-blue); font-weight:700; font-size:1.45rem; margin:15px 0;">Theme Updated Soon</p>
-                            <p style="font-size:0.95rem; color:var(--text-muted); margin-bottom:25px; line-height:1.6;">Encompasses a strict layout consisting of exactly <strong>10 specialized questions</strong> shared beforehand.</p>
+
+                    <div class="product-showcase-meta">
+                        <div class="product-showcase-meta-card">
+                            <span>Status</span>
+                            <strong>Registration opening Soon</strong>
                         </div>
-                        <div class="card-action-cluster">
-                            <a href="registration-campus-interview.html" class="btn-card-register" onclick="event.stopPropagation();" target="_blank" style="background: linear-gradient(135deg, var(--google-green), #047857); box-shadow: 0 8px 24px rgba(52, 168, 83, 0.4);">
-                                Register for Event 2 <i class="fas fa-external-link-alt"></i>
-                            </a>
-                             <a href="https://chat.whatsapp.com/JNWUSG1AjIhAqQOwaSqP6f?s=cl&p=a&mlu=0" 
-                             class="btn-card-register" 
-                                onclick="event.stopPropagation();" 
-                                target="_blank" 
-                                style="background-color: #25D366 !important; background-image: none !important; border: 1px solid #25D366 !important; display: inline-flex !important; align-items: center !important; gap: 8px !important; color: white !important;">
-                                Join WhatsApp Group <i class="fab fa-whatsapp"></i>
-                            </a>
-                            <a href="campus-interview-details.html" class="btn-card-explore" onclick="event.stopPropagation();">
-                                Explore Full Details Here <i class="fas fa-chevron-right"></i>
-                            </a>
+                        <div class="product-showcase-meta-card">
+                            <span>Format</span>
+                            <strong>Trial based activity</strong>
                         </div>
+                        <div class="product-showcase-meta-card">
+                            <span>Update</span>
+                            <strong>Seats Limited</strong>
+                        </div>
+                    </div>
+
+                    <div class="product-showcase-theme">
+                        <span>Theme</span>
+                        <p>Freshers Party Planning Night with Gemini</p>
+                    </div>
+
+                    <div class="product-showcase-actions">
+                        <a href="registration-product-trial.html" class="btn-card-register" onclick="event.stopPropagation();" target="_blank" style="width:100%;">
+                            Register Now <i class="fas fa-user-plus"></i>
+                        </a>
+                        <a href="https://chat.whatsapp.com/JNWUSG1AjIhAqQOwaSqP6f?s=cl&p=a&mlu=0" class="btn-card-register btn-product-showcase-whatsapp" onclick="event.stopPropagation();" target="_blank" style="width:100%;">
+                            Join WhatsApp Group <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="product-trial-details.html" class="btn-card-explore btn-product-showcase-details" onclick="event.stopPropagation();" target="_blank" style="width:100%;">
+                            Event Details <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
-            </div>
+            </article>
 
         </div>
     </section>
