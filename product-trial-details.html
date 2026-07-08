@@ -2,59 +2,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Trials | The SoulSoil Sync Presented by Adhyatmantan Farms</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-
     <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#ffffff">
-    <!-- ब्राउझर टॅबसाठी लोगो (Favicon) -->
-  <link rel="icon" href="images/Logo.png" type="image/png">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="icon" href="images/Logo.png" type="image/png">
 
-  <!-- WhatsApp & Facebook 'Rich Preview' कार्ड सेटिंग्स -->
-  <meta property="og:title" content="Product Trials Details | The SoulSoil Sync">
-  <meta property="og:description" content="Presented by Adhyatmantan Farms. Complete guide for the Technical Innovation Showcase. Check out registration details, rules, eligibility, and prize structures for both the Product Trial and Campus Interview events.">
-  <meta property="og:image" content="https://the-soulsoil-sync.vercel.app/images/Logo.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:type" content="image/png">
-  <meta property="og:url" content="https://the-soulsoil-sync.vercel.app/product-trial-details.html">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="The SoulSoil Sync Presented by Adhyatmantan Farms">
-<style>
+    <!-- WhatsApp & Facebook 'Rich Preview' कार्ड सेटिंग्स -->
+    <meta property="og:title" content="Product Trials Details | The SoulSoil Sync">
+    <meta property="og:description" content="Presented by Adhyatmantan Farms. Complete guide for the Technical Innovation Showcase. Check out registration details, rules, eligibility, and prize structures for both the Product Trial and Campus Interview events.">
+    <meta property="og:image" content="https://the-soulsoil-sync.vercel.app/images/Logo.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:url" content="https://the-soulsoil-sync.vercel.app/product-trial-details.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="The SoulSoil Sync Presented by Adhyatmantan Farms">
 
+    <style>
         :root {
             --google-blue: #4285F4;
             --google-red: #EA4335;
             --google-yellow: #FBBC05;
             --google-green: #34A853;
-            --dark-bg: #050505;
-            --card-bg: rgba(255, 255, 255, 0.03);
+            --dark-bg: #030712;
+            --card-bg: rgba(17, 24, 39, 0.45);
             --text-light: #f9fafb;
             --text-muted: #9ca3af;
             --body-bg: var(--dark-bg);
             --content-text: var(--text-light);
-            --border-color: rgba(255, 255, 255, 0.1);
+            --border-color: rgba(255, 255, 255, 0.06);
             --card-shadow: rgba(0, 0, 0, 0.6);
-            --blur-effect: blur(20px);
+            --blur-effect: blur(16px);
             --glow-color: rgba(66, 133, 244, 0.25);
             
             --orb-blue: rgba(66, 133, 244, 0.3);
             --orb-red: rgba(234, 67, 53, 0.25);
-            --orb-blur: 100px;
+            --orb-blur: 130px;
             --container-glow: none;
             
             --card-desc-text: #ccc;
             --card-sub-text: #bbb;
             --btn-border: rgba(255, 255, 255, 0.1);
             --back-btn-text: #ffffff;
-            --back-btn-border: rgba(255, 255, 255, 0.12);
-            --back-btn-bg: rgba(255, 255, 255, 0.06);
+            --back-btn-border: rgba(255, 255, 255, 0.06);
+            --back-btn-bg: rgba(17, 24, 39, 0.45);
             --footer-text: #64748b;
         }
 
-        /* --- Ultra-Premium Light Mode Layout --- */
+        /* --- Ultra-Premium Light Mode with 80% Visibility Deep Corporate Color Wave --- */
         body.light-grid-theme {
             --body-bg: #e2e8f0;
             --content-text: #0f172a;
@@ -67,21 +65,24 @@
             --orb-blue: rgba(66, 133, 244, 0.35);
             --orb-red: rgba(234, 67, 53, 0.28);
             --orb-blur: 100px;
+            
             --container-glow: 0 15px 35px rgba(66, 133, 244, 0.22), 0 0 25px rgba(66, 133, 244, 0.15);
             
             --card-desc-text: #1e293b;
             --card-sub-text: #475569;
             --btn-border: rgba(66, 133, 244, 0.2);
             --back-btn-text: #0f172a;
-            --back-btn-border: rgba(66, 133, 244, 0.3);
-            --back-btn-bg: #f8fafc;
+            --back-btn-border: rgba(66, 133, 244, 0.4);
+            --back-btn-bg: rgba(255, 255, 255, 0.88);
             --footer-text: #475569;
 
+            /* 80% Strong Industrial Darker Gradient Colors for Background Animation */
             background: linear-gradient(135deg, #cbd5e1, #bfdbfe, #fecaca, #fef08a, #bbf7d0);
             background-size: 400% 400%;
             animation: gradientWave 15s ease infinite;
         }
 
+        /* Technical Blueprint Notebook layout over the moving background */
         body.light-grid-theme::after {
             content: "";
             position: absolute;
@@ -113,12 +114,16 @@
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
-            padding: 40px 20px;
+            padding: 60px 20px;
             transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
         }
 
-        .bg-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
-        .orb { position: absolute; border-radius: 50%; filter: blur(var(--orb-blur)); opacity: 0.3; transition: filter 0.5s; }
+        /* --- Dynamic Background Lights (Active in Dark Mode) --- */
+        .google-orb {
+            position: absolute; border-radius: 50%; z-index: -2; filter: blur(var(--orb-blur)); pointer-events: none;
+        }
+        .orb-1 { background-color: var(--orb-blue); width: 600px; height: 600px; top: -10%; left: -10%; }
+        .orb-2 { background-color: var(--orb-red); width: 500px; height: 500px; bottom: -10%; right: -10%; }
 
         .container { max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
         
@@ -128,7 +133,7 @@
         .right-column { order: 2; position: sticky; top: 40px; height: fit-content; }
 
         .card { 
-            background: var(--card-bg); 
+            background-color: var(--card-bg); 
             backdrop-filter: var(--blur-effect); 
             -webkit-backdrop-filter: var(--blur-effect);
             padding: 30px; 
@@ -139,6 +144,7 @@
             transition: background-color 0.3s, box-shadow 0.3s, border-color 0.3s;
         }
         
+        /* --- Floating Adaptive Theme Switcher --- */
         .theme-toggle-btn {
             position: absolute; top: -10px; right: 0; background-color: var(--card-bg); backdrop-filter: var(--blur-effect); -webkit-backdrop-filter: var(--blur-effect); border: 2px solid var(--google-blue); padding: 14px; border-radius: 50%; cursor: pointer; box-shadow: 0 10px 30px var(--card-shadow); display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 10;
         }
@@ -149,14 +155,17 @@
         body.light-grid-theme .theme-toggle-btn .fa-moon { display: none; }
         body.light-grid-theme .theme-toggle-btn { border-color: #1e40af; }
 
+        /* --- Back Button --- */
         .btn-back-home {
-            display: inline-block; 
-            padding: 12px 32px; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px;
+            padding: 12px 24px; 
             border: 1px solid var(--back-btn-border); 
-            border-radius: 100px; 
+            border-radius: 30px; 
             color: var(--back-btn-text); 
             text-decoration: none; 
-            font-size: 1rem; 
+            font-size: 0.95rem; 
             font-weight: 600;
             transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
             margin-bottom: 20px; 
@@ -166,8 +175,7 @@
         }
         .btn-back-home:hover { 
             border-color: var(--google-blue); 
-            transform: scale(1.03);
-            box-shadow: 0 4px 15px rgba(66, 133, 244, 0.15);
+            transform: translateX(-4px);
         }
 
         .sidebar-btn { display: block; width: 100%; padding: 18px; margin-bottom: 15px; border-radius: 12px; text-align: center; font-weight: 800; text-decoration: none; color: #fff; transition: 0.3s; border: 1px solid var(--btn-border); }
@@ -196,14 +204,14 @@
     </style>
 </head>
 <body>
-    <div class="bg-container">
-        <div class="orb" style="background:var(--orb-blue); width:400px; height:400px; top:-10%; left:-10%;"></div>
-        <div class="orb" style="background:var(--orb-red); width:350px; height:350px; bottom:-10%; right:-10%;"></div>
-    </div>
+
+    <!-- Dynamic Mesh Background Orbs (Active in Dark mode) -->
+    <div class="google-orb orb-1"></div>
+    <div class="google-orb orb-2"></div>
 
     <div class="container">
         <div style="position: relative; display: flex; justify-content: space-between; align-items: center;">
-                <a href="index.html" class="btn-back-home"> <i class="fas fa-chevron-left"></i> Back to Home</a>
+            <a href="index.html" class="btn-back-home"> <i class="fas fa-chevron-left"></i> Back to Home</a>
             <button class="theme-toggle-btn" onclick="togglePageTheme()" title="Switch Layout Environment">
                 <i class="fas fa-moon"></i><i class="fas fa-sun"></i>
             </button>
@@ -225,15 +233,11 @@
                 </div>
 
                 <!-- ULTRA-CLEAN EVENT DESCRIPTION CARD -->
-                <div class="card" style="background: #111111; color: #e3e3e3; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; padding: 32px; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6); position: relative; overflow: hidden;">
+                <div class="card">
                     
-                    <!-- Decorative Theme Elements -->
-                    <div style="position: absolute; top: -10px; right: -10px; font-size: 5rem; opacity: 0.03; pointer-events: none; filter: blur(1px);">✨</div>
-                    <div style="position: absolute; bottom: -15px; left: -10px; font-size: 3.5rem; opacity: 0.02; pointer-events: none;">✨</div>
-
                     <!-- Header -->
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid var(--border-color); padding-bottom: 16px;">
-                        <h3 style="margin: 0; font-size: 1.35rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px;">
+                        <h3 style="margin: 0; font-size: 1.35rem; font-weight: 700; display: flex; align-items: center; gap: 8px;">
                             <span style="color: #4285F4;">✨</span> Event Description
                         </h3>
                         <span style="background: rgba(66, 133, 244, 0.12); color: #8ab4f8; border: 1px solid rgba(66, 133, 244, 0.25); padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px;">PILLAR #1</span>
@@ -258,39 +262,39 @@
                         </div>
 
                         <!-- ROADMAP EXECUTION FLOW -->
-                        <h4 style="margin: 0 0 16px 0; font-size: 1.05rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 6px;">
+                        <h4 style="margin: 0 0 16px 0; font-size: 1.05rem; font-weight: 700; display: flex; align-items: center; gap: 6px;">
                             <i class="fas fa-list-ol" style="color: #FBBC05; font-size: 0.95rem;"></i> Step-by-Step Task Roadmap
                         </h4>
                         
                         <div style="margin-bottom: 24px;">
                             <div class="step-node">
                                 <div class="step-num">1</div>
-                                <div style="font-size: 0.9rem; color: var(--card-desc-text);"><strong style="color: #fff;">Pre-Survey Form:</strong> Fill out the initial registration survey and make sure to include your ambassador's tracking information.</div>
+                                <div style="font-size: 0.9rem; color: var(--card-desc-text);"><strong>Pre-Survey Form:</strong> Fill out the initial registration survey and make sure to include your ambassador's tracking information.</div>
                             </div>
                             <div class="step-node">
                                 <div class="step-num">2</div>
-                                <div style="font-size: 0.9rem; color: var(--card-desc-text);"><strong style="color: #fff;">Gemini Blueprint Build:</strong> Launch Gemini Chat, pitch your core party concept, and let it map out detailed game workflows, icebreakers, and timelines.</div>
+                                <div style="font-size: 0.9rem; color: var(--card-desc-text);"><strong>Gemini Blueprint Build:</strong> Launch Gemini Chat, pitch your core party concept, and let it map out detailed game workflows, icebreakers, and timelines.</div>
                             </div>
                             <div class="step-node">
                                 <div class="step-num">3</div>
-                                <div style="font-size: 0.9rem; color: var(--card-desc-text);"><strong style="color: #fff;">Stress-Test Verification:</strong> Ask Gemini to find the weakest parts of your event structure. Fix the gaps and finalize your complete text content inside a clean Google Doc.</div>
+                                <div style="font-size: 0.9rem; color: var(--card-desc-text);"><strong>Stress-Test Verification:</strong> Ask Gemini to find the weakest parts of your event structure. Fix the gaps and finalize your complete text content inside a clean Google Doc.</div>
                             </div>
                             <div class="step-node">
                                 <div class="step-num">4</div>
-                                <div style="font-size: 0.9rem; color: var(--card-desc-text);"><strong style="color: #fff;">Nano Banana Canvas:</strong> Input your descriptive party environment brief into Nano Banana to generate a highly vivid, detailed invitation poster.</div>
+                                <div style="font-size: 0.9rem; color: var(--card-desc-text);"><strong>Nano Banana Canvas:</strong> Input your descriptive party environment brief into Nano Banana to generate a highly vivid, detailed invitation poster.</div>
                             </div>
                             <div class="step-node">
                                 <div class="step-num">5</div>
-                                <div style="font-size: 0.9rem; color: var(--card-desc-text);"><strong style="color: #fff;">60-Second Room Pitch:</strong> Present your complete event poster and plan to the room for an immediate "Would Attend" or "Would Skip" live vote.</div>
+                                <div style="font-size: 0.9rem; color: var(--card-desc-text);"><strong>60-Second Room Pitch:</strong> Present your complete event poster and plan to the room for an immediate "Would Attend" or "Would Skip" live vote.</div>
                             </div>
                             <div class="step-node">
                                 <div class="step-num">6</div>
-                                <div style="font-size: 0.9rem; color: var(--card-desc-text);"><strong style="color: #fff;">Final Submission:</strong> Upload your structured Google Document link, your Nano Banana canvas graphic, and the shareable Gemini chat log history.</div>
+                                <div style="font-size: 0.9rem; color: var(--card-desc-text);"><strong>Final Submission:</strong> Upload your structured Google Document link, your Nano Banana canvas graphic, and the shareable Gemini chat log history.</div>
                             </div>
                         </div>
 
                         <!-- Short Direct Prize Check Callout -->
-                        <p style="margin: 0 0 28px 0; font-size: 0.9rem; opacity: 0.95; display: flex; align-items: center; gap: 8px; color: #81c995; font-weight: 500;">
+                        <p style="margin: 0 0 28px 0; font-size: 0.9rem; opacity: 0.95; display: flex; align-items: center; gap: 8px; color: #34A853; font-weight: 500;">
                             <i class="fas fa-gift" style="color: #34A853;"></i> Please review the "View Prizes" action module to inspect the full event rewards structure!
                         </p>
 
@@ -298,15 +302,15 @@
                         <div style="background: rgba(255, 255, 255, 0.01); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; font-size: 0.88rem;">
                             <div>
                                 <span style="opacity: 0.5; font-size: 0.8rem; display: block; margin-bottom: 4px;">Ambassador Name:</span>
-                                <span style="font-weight: 700; color: var(--content-text); text-transform: uppercase;">Amol Rangrao Patil</span>
+                                <span style="font-weight: 700; text-transform: uppercase;">Amol Rangrao Patil</span>
                             </div>
                             <div>
                                 <span style="opacity: 0.5; font-size: 0.8rem; display: block; margin-bottom: 4px;">Email ID:</span>
-                                <span style="font-weight: 700; color: var(--content-text);">amolemail10@gmail.com</span>
+                                <span style="font-weight: 700;">amolemail10@gmail.com</span>
                             </div>
                             <div style="grid-column: 1 / -1; margin-top: 4px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 12px;">
                                 <span style="opacity: 0.5; font-size: 0.8rem; display: block; margin-bottom: 4px;">Ambassador GID:</span>
-                                <span style="font-weight: 700; color: #8ab4f8; font-size: 0.95rem;">909</span>
+                                <span style="font-weight: 700; color: #4285F4; font-size: 0.95rem;">909</span>
                             </div>
                         </div>
                     </div>
@@ -334,7 +338,6 @@
                     <a href="#" class="sidebar-btn btn-task"> Pre Survey Form</a>
                     <a href="prize-counter.html" class="sidebar-btn btn-prize">VIEW PRIZES</a>
                     <a href="https://producttrialfeedback.geministudentambassador.com/" class="sidebar-btn btn-task">SUBMIT TASK</a>
-                    
                 </div>
             </div>
             
